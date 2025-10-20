@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="brown">#6B4C3B</color>
+
+    <color name="coffee">#2F2F2F</color>
+    <color name="beige">#D4B6A0</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+
+
+    <color name="ic_launcher_background">#BA9D8A</color>
+
+    <color name="coffee_bg">#3B3B3B</color>        <!-- fundo cinza escuro -->
+    <color name="card_bg">#4A4A4A</color>          <!-- cards -->
+    <color name="accent_beige">#C9A78F</color>     <!-- barra inferior / primary -->
+    <color name="divider_gray">#9C9C9C</color>     <!-- divisores -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#E0E0E0</color>
+
+</resources>

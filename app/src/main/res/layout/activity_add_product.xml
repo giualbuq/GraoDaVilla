@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2F2F2F">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Imagem do Produto -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/imageProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#C4C4C4"
+                    android:contentDescription="Imagem do Produto"
+                    android:clipToOutline="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/iconSelectImage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/ic_download"
+                        android:elevation="6dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Formulário -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="24dp"
+                android:elevation="4dp">
+
+                <TextView
+                    android:text="Título"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Digite o título"
+                    android:textColor="#000000"
+                    android:textColorHint="#c4c4c4"
+                    android:textSize="16sp"
+                    android:background="#525252"
+                    android:padding="10dp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:text="Categoria"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#525252"
+                    android:textColor="#c4c4c4"
+                    android:textColorHint="#c4c4c4"
+                    android:padding="10dp"
+                    android:spinnerMode="dropdown" />
+
+                <TextView
+                    android:text="Preço"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/editPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Digite o preço"
+                    android:textColor="#c4c4c4"
+                    android:textColorHint="#c4c4c4"
+                    android:textSize="16sp"
+                    android:background="#525252"
+                    android:inputType="numberDecimal"
+                    android:padding="10dp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:text="Descrição"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+                <EditText
+                    android:id="@+id/editDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Digite a descrição"
+                    android:textColor="#c4c4c4"
+                    android:textColorHint="#c4c4c4"
+                    android:textSize="16sp"
+                    android:background="#525252"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:padding="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start|top" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Botão Voltar Flutuante sobre tudo -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Voltar"
+        android:backgroundTint="#323232"
+        app:elevation="8dp"
+        android:layout_gravity="top|start"
+        app:tint="#ffffff"/>
+
+    <!-- Botões Flutuantes no Rodapé -->
+    <LinearLayout
+        android:id="@+id/footerButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp"
+        android:weightSum="2"
+        android:background="#ba9d8a"
+        android:elevation="12dp"
+        android:layout_marginBottom="0dp">
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#927869"
+            android:text="Salvar"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#d5bcad"
+            android:text="Cancelar"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</FrameLayout>

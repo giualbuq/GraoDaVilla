@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2F2F2F"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <!-- Ícone Usuário -->
+        <ImageView
+            android:id="@+id/iconUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person"
+            android:contentDescription="Usuário" />
+
+        <!-- Espaço central -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo_graodavilla" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Ícone Carrinho -->
+        <ImageView
+            android:id="@+id/iconCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shopping_cart"
+            android:contentDescription="Carrinho" />
+    </LinearLayout>
+
+    <!-- Conteúdo principal com ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Card de adicionar produto (apenas admins) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#FF9800"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_add"
+                        android:contentDescription="Adicionar produto"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Adicionar Produto"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:paddingStart="12dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Bebidas -->
+            <TextView
+                android:id="@+id/textHotDrinks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bebidas Quentes"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHotDrinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="8dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+            <!-- Salgados -->
+            <TextView
+                android:id="@+id/textSnacks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salgados"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSnacks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="8dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+            <!-- Doces -->
+            <TextView
+                android:id="@+id/textDesserts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doces"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDesserts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="8dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

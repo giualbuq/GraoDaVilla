@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "35793685227",
+    "project_id": "graodavillaapp",
+    "storage_bucket": "graodavillaapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35793685227:android:4aa192c55453b560a68cae",
+        "android_client_info": {
+          "package_name": "com.example.graodavilla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArYb4rW4uVXHYkE8U0lbB-i80hzyQ-mlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

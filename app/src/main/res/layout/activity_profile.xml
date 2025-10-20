@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2F2F2F"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- Título da Tela -->
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meu Perfil"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Card de informações -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3A3A3A"
+            android:padding="16dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="24dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_marginHorizontal="4dp">
+
+            <!-- Nome -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giulia Albuquerque"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+            <!-- Email -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_email"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="giulia@example.com"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+            <!-- Telefone -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+55 11 99999-9999"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- Botão Sair -->
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sair"
+            android:backgroundTint="#FF5252"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_marginBottom="24dp"/>
+    </LinearLayout>
+</ScrollView>

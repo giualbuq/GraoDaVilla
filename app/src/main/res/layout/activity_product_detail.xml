@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2F2F2F">
+
+    <!-- Conteúdo principal com ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <!-- Imagem do produto -->
+            <ImageView
+                android:id="@+id/imageProductDetail"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/defaultimage"
+                android:contentDescription="@string/product_image" />
+
+            <!-- Nome do produto com ícones de editar/deletar -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="14dp">
+
+                <TextView
+                    android:id="@+id/textNameDetail"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"/>
+
+                <!-- Botão de editar -->
+                <ImageView
+                    android:id="@+id/buttonEditProduct"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_edit"
+                    android:contentDescription="Editar produto"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:visibility="visible"
+                    app:tint="@color/white" />
+
+                <!-- Botão de deletar -->
+                <ImageView
+                    android:id="@+id/buttonDeleteProduct"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_delete"
+                    android:contentDescription="Deletar produto"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:visibility="visible"
+                    app:tint="@color/white"/>
+            </LinearLayout>
+
+            <!-- Descrição do produto -->
+            <TextView
+                android:id="@+id/textDescriptionDetail"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#ffffff"
+                android:padding="8dp"/>
+
+            <!-- Preço do produto -->
+            <TextView
+                android:id="@+id/textPriceDetail"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#ffffff"
+                android:padding="8dp"/>
+
+            <!-- Contador de quantidade -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/buttonDecrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:src="@drawable/ic_minus"
+                    android:contentDescription="Diminuir quantidade"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/textQuantity"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
+
+                <ImageButton
+                    android:id="@+id/buttonIncrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="Aumentar quantidade"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <!-- Botão Adicionar ao pedido -->
+            <Button
+                android:id="@+id/buttonAddToCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adicionar ao pedido"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/accent_beige"
+                android:textColor="@android:color/white"
+                android:padding="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Floating Action Button para voltar -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Voltar"
+        android:backgroundTint="#323232"
+        app:elevation="8dp"
+        android:layout_gravity="top|start"
+        app:tint="#ffffff"/>
+</FrameLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#717171"
+    android:padding="16dp"
+    android:layout_marginEnd="12dp">
+
+    <ImageView
+        android:id="@+id/imageAdd"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_add"
+        android:contentDescription="Novo Item"
+        app:tint="@color/white" />
+</LinearLayout>
