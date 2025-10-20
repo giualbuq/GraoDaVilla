@@ -20,9 +20,9 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private Context context;
-    private List<CartItem> cartItems;
-    private OnCartUpdatedListener listener;
+    private final Context context;
+    private final List<CartItem> cartItems;
+    private final OnCartUpdatedListener listener;
 
     public interface OnCartUpdatedListener {
         void onCartUpdated();
@@ -67,12 +67,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             int qty = item.getQuantity() - 1;
             if (qty > 0) {
                 item.setQuantity(qty);
+                notifyItemChanged(position);
             } else {
-                // Remove item do carrinho
-                CartManager.getInstance().removeFromCart(item.getProduct());
+                CartManager.getInstance().removeCartItem(item);
                 cartItems.remove(position);
+                notifyItemRemoved(position);
             }
-            notifyDataSetChanged();
+            listener.onCartUpdated();
+        });
+
+        // Remover item com lixeira
+        holder.buttonRemove.setOnClickListener(v -> {
+            CartManager.getInstance().removeCartItem(item);
+            cartItems.remove(position);
+            notifyItemRemoved(position);
             listener.onCartUpdated();
         });
     }
@@ -85,17 +93,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     static class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView imageProduct;
         TextView textName, textPriceTotal, textPriceUnit, textQuantity;
-        ImageButton buttonIncrease, buttonDecrease;
+        ImageButton buttonIncrease, buttonDecrease, buttonRemove;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             imageProduct = itemView.findViewById(R.id.imageProductCart);
             textName = itemView.findViewById(R.id.textNameCart);
             textQuantity = itemView.findViewById(R.id.textQuantityCart);
-            textPriceTotal = itemView.findViewById(R.id.textPriceCart); // preço total do item
-            textPriceUnit = itemView.findViewById(R.id.textPriceUnitCart); // preço unitário
+            textPriceTotal = itemView.findViewById(R.id.textPriceCart);
+            textPriceUnit = itemView.findViewById(R.id.textPriceUnitCart);
             buttonIncrease = itemView.findViewById(R.id.buttonIncreaseCart);
             buttonDecrease = itemView.findViewById(R.id.buttonDecreaseCart);
+            buttonRemove = itemView.findViewById(R.id.buttonRemoveCart);
         }
     }
 }

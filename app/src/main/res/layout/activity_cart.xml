@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="#2F2F2F">
 
-    <TextView
-        android:text="Seu Carrinho"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
+    <!-- Cabeçalho com botão voltar e título -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/buttonBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Voltar"
+            android:layout_marginEnd="8dp"
+            app:tint="@color/white" />
+
+        <TextView
+            android:text="Seu Carrinho"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <!-- Mensagem Carrinho Vazio -->
     <TextView
@@ -25,13 +43,13 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/textCartTotal"
@@ -41,7 +59,7 @@
         android:textColor="@color/white"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_width="wrap_content" />
 
     <Button
         android:id="@+id/buttonCartPay"
@@ -50,6 +68,6 @@
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

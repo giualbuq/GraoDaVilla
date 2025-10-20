@@ -231,9 +231,9 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
 
-        int price;
+        double price;
         try {
-            price = Integer.parseInt(priceStr);
+            price = Double.parseDouble(priceStr);
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Preço inválido", Toast.LENGTH_SHORT).show();
             resetUploadState();

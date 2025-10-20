@@ -43,7 +43,8 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/ic_download"
-                        android:elevation="6dp"/>
+                        android:elevation="6dp"
+                        app:tint="#FFFFFF" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -80,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Digite o título"
-                    android:textColor="#000000"
+                    android:textColor="#c4c4c4"
                     android:textColorHint="#c4c4c4"
                     android:textSize="16sp"
                     android:background="#525252"

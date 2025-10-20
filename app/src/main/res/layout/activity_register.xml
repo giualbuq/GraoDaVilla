@@ -11,17 +11,72 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         android:gravity="center_horizontal">
 
         <!-- Logo -->
         <ImageView
             android:id="@+id/logoRegister"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="@drawable/logo_graodavilla"
             android:contentDescription="Logo do app"
             android:layout_marginBottom="32dp" />
+
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crie sua conta no Grão da Villa"
+            android:textColor="@color/text_secondary"
+            android:textSize="20sp"
+            android:fontFamily="@font/roboto_regular"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/textSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preencha os campos para se cadastrar"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:fontFamily="@font/roboto_regular"
+            android:textStyle="normal"
+            android:layout_marginBottom="30dp" />
+
+        <!-- Nome -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_edittext_round"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_person"
+                android:contentDescription="Ícone de nome"
+                app:tint="@color/text_secondary" />
+
+            <EditText
+                android:id="@+id/editRegisterName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Nome completo"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:background="@android:color/transparent"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:paddingStart="8dp"
+                android:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
 
         <!-- E-mail -->
         <LinearLayout
@@ -53,7 +108,7 @@
                 android:textSize="16sp"
                 android:inputType="textEmailAddress"
                 android:paddingStart="8dp"
-                android:fontFamily="@font/roboto_regular"/>
+                android:fontFamily="@font/roboto_regular" />
         </LinearLayout>
 
         <!-- Senha -->
@@ -86,7 +141,7 @@
                 android:textSize="16sp"
                 android:inputType="textPassword"
                 android:paddingStart="8dp"
-                android:fontFamily="@font/roboto_regular"/>
+                android:fontFamily="@font/roboto_regular" />
         </LinearLayout>
 
         <!-- Confirmar Senha -->
@@ -104,7 +159,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_password"
-                android:contentDescription="Ícone de senha"
+                android:contentDescription="Ícone de confirmar senha"
                 app:tint="@color/text_secondary" />
 
             <EditText
@@ -112,14 +167,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="Confirmar Senha"
+                android:hint="Confirmar senha"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:background="@android:color/transparent"
                 android:textSize="16sp"
                 android:inputType="textPassword"
                 android:paddingStart="8dp"
-                android:fontFamily="@font/roboto_regular"/>
+                android:fontFamily="@font/roboto_regular" />
         </LinearLayout>
 
         <!-- Botão Cadastrar -->
@@ -133,19 +188,36 @@
             android:textSize="16sp"
             android:backgroundTint="@color/accent_beige"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/roboto_bold"/>
+            android:fontFamily="@font/roboto_bold" />
 
-        <!-- Botão Login com Google -->
-        <Button
+        <!-- Botão Google -->
+        <LinearLayout
             android:id="@+id/buttonGoogleRegister"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="Cadastrar com Google"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:backgroundTint="@color/divider_gray"
+            android:background="@drawable/bg_edittext_round"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/roboto_bold"/>
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_google"
+                android:contentDescription="Google icon"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar com Google"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_bold" />
+        </LinearLayout>
 
         <!-- Link para login -->
         <TextView
@@ -157,6 +229,6 @@
             android:textSize="14sp"
             android:fontFamily="@font/roboto_regular"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true" />
     </LinearLayout>
 </ScrollView>

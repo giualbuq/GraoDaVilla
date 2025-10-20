@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sair"
-            android:backgroundTint="#FF5252"
+            android:backgroundTint="#ba9d8a"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
             android:layout_marginBottom="24dp"/>

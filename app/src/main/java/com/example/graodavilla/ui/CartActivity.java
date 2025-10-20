@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
     private RecyclerView recyclerCart;
     private Button buttonPay;
     private TextView textEmpty;
+    private ImageView buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +37,42 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         recyclerCart = findViewById(R.id.recyclerCart);
         textTotal = findViewById(R.id.textCartTotal);
         buttonPay = findViewById(R.id.buttonCartPay);
-        textEmpty = findViewById(R.id.textCartEmpty); // TextView "Carrinho vazio"
+        textEmpty = findViewById(R.id.textCartEmpty);
+        buttonBack = findViewById(R.id.buttonBack);
+
+        buttonBack.setOnClickListener(v -> finish());
 
         recyclerCart.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CartAdapter(this, CartManager.getInstance().getCartItems(), this);
         recyclerCart.setAdapter(adapter);
 
-        checkCartEmpty(); // Verifica se o carrinho está vazio
+        updateTotal();
+        checkCartEmpty();
 
         buttonPay.setOnClickListener(v -> showPaymentDialog());
     }
 
-    // Atualiza a UI dependendo se o carrinho está vazio ou não
     private void checkCartEmpty() {
-        boolean isEmpty = CartManager.getInstance().getCartItems().isEmpty();
+        boolean isEmpty = CartManager.getInstance().isEmpty();
         recyclerCart.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         textTotal.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         textEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-        buttonPay.setEnabled(!isEmpty); // desabilita botão se vazio
-        buttonPay.setAlpha(isEmpty ? 0.5f : 1f); // opcional: deixa o botão semi-transparente
+        buttonPay.setEnabled(!isEmpty);
+        buttonPay.setAlpha(isEmpty ? 0.5f : 1f);
     }
 
     private void showPaymentDialog() {
-        if (CartManager.getInstance().getCartItems().isEmpty()) {
+        if (CartManager.getInstance().isEmpty()) {
             Toast.makeText(this, "O carrinho está vazio!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_payment, null);
-        final EditText editMesa = dialogView.findViewById(R.id.editMesa);
-        final RadioButton rbDinheiro = dialogView.findViewById(R.id.rbDinheiro);
-        final RadioButton rbPix = dialogView.findViewById(R.id.rbPix);
-        final RadioButton rbDebito = dialogView.findViewById(R.id.rbDebito);
-        final RadioButton rbCredito = dialogView.findViewById(R.id.rbCredito);
+        EditText editMesa = dialogView.findViewById(R.id.editMesa);
+        RadioButton rbDinheiro = dialogView.findViewById(R.id.rbDinheiro);
+        RadioButton rbPix = dialogView.findViewById(R.id.rbPix);
+        RadioButton rbDebito = dialogView.findViewById(R.id.rbDebito);
+        RadioButton rbCredito = dialogView.findViewById(R.id.rbCredito);
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Finalizar Pedido")
@@ -89,13 +94,12 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
                         return;
                     }
 
-                    // Limpa carrinho
+                    // Limpar o carrinho após enviar
                     CartManager.getInstance().clearCart();
                     adapter.notifyDataSetChanged();
                     updateTotal();
                     checkCartEmpty();
 
-                    // Mostra dialog de sucesso
                     View successView = LayoutInflater.from(this).inflate(R.layout.dialog_success, null);
                     TextView textSuccess = successView.findViewById(R.id.textSuccess);
                     TextView textInfo = successView.findViewById(R.id.textInfo);

@@ -15,7 +15,6 @@ public class CartManager {
         cartItems = new ArrayList<>();
     }
 
-    // Singleton
     public static CartManager getInstance() {
         if (instance == null) {
             instance = new CartManager();
@@ -37,8 +36,9 @@ public class CartManager {
         cartItems.add(new CartItem(product, quantity));
     }
 
-    public void removeFromCart(Product product) {
-        cartItems.removeIf(item -> item.getProduct().getId().equals(product.getId()));
+    // Remove apenas o item específico do carrinho
+    public void removeCartItem(CartItem cartItem) {
+        cartItems.remove(cartItem);
     }
 
     public void clearCart() {

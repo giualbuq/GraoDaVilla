@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/textFinishOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar pedido"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
     <EditText
         android:id="@+id/editMesa"
         android:hint="Número da mesa"

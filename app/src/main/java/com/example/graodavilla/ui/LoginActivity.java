@@ -6,6 +6,7 @@ import android.view.View;
 import com.example.graodavilla.R;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editPassword = findViewById(R.id.editPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
-        buttonGoogleLogin = findViewById(R.id.buttonGoogleLogin);
         textRegister = findViewById(R.id.textRegister);
 
         // Botão Entrar
@@ -47,13 +47,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Botão Google (apenas placeholder)
-        buttonGoogleLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "Login com Google ainda não implementado", Toast.LENGTH_SHORT).show();
-            }
+        // Botão Google (placeholder)
+        findViewById(R.id.buttonGoogleLogin).setOnClickListener(v -> {
+            Toast.makeText(LoginActivity.this, "Login com Google ainda não implementado", Toast.LENGTH_SHORT).show();
         });
+
 
         // Link Cadastrar
         textRegister.setOnClickListener(new View.OnClickListener() {
