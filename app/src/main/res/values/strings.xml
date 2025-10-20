@@ -1,4 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Grão da Villa</string>
-    <string name="product_image">Imagem do produto</string>
+
+    <!-- Firebase Configuration -->
+    <string name="gcm_defaultSenderId" translatable="false">35793685227</string>
+    <string name="google_api_key" translatable="false">AIzaSyArYb4rW4uVXHYkE8U0lbB-i80hzyQ-mlI</string>
+    <string name="google_app_id" translatable="false">1:35793685227:android:4aa192c55453b560a68cae</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyArYb4rW4uVXHYkE8U0lbB-i80hzyQ-mlI</string>
+    <string name="google_storage_bucket" translatable="false">graodavillaapp.firebasestorage.app</string>
+    <string name="project_id" translatable="false">graodavillaapp</string>
+
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id" translatable="false">35793685227-rm6f9dvcb5uvm5ja2tjnarq01tkmripb.apps.googleusercontent.com</string>
+
+    <!-- Mensagens da aplicação -->
+    <string name="login_success">Login realizado com sucesso!</string>
+    <string name="login_failed">Falha no login</string>
+    <string name="register_success">Cadastro realizado com sucesso!</string>
+    <string name="register_failed">Falha no cadastro</string>
 </resources>

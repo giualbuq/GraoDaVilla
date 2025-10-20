@@ -23,7 +23,7 @@
                 android:layout_height="240dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/defaultimage"
-                android:contentDescription="@string/product_image" />
+                android:contentDescription="Imagem exemplo" />
 
             <!-- Nome do produto com ícones de editar/deletar -->
             <LinearLayout
