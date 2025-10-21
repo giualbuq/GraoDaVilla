@@ -38,7 +38,12 @@ public class CartManager {
 
     // Remove apenas o item específico do carrinho
     public void removeCartItem(CartItem cartItem) {
-        cartItems.remove(cartItem);
+        for (int i = 0; i < cartItems.size(); i++) {
+            if (cartItems.get(i).getProduct().getId().equals(cartItem.getProduct().getId())) {
+                cartItems.remove(i);
+                break;
+            }
+        }
     }
 
     public void clearCart() {

@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     android:background="#2F2F2F"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="16dp">
 
     <!-- Top Bar -->
     <LinearLayout
@@ -110,6 +114,26 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerHotDrinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="8dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+            <!-- Bebidas Geladas -->
+            <TextView
+                android:id="@+id/textColdDrinks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bebidas Geladas"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerColdDrinks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"

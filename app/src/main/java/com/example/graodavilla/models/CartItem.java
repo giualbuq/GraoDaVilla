@@ -1,7 +1,7 @@
 package com.example.graodavilla.models;
 
-import com.example.graodavilla.models.Product;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CartItem implements Serializable {
     private Product product;
@@ -32,4 +32,16 @@ public class CartItem implements Serializable {
         return quantity * product.getPrice();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartItem)) return false;
+        CartItem that = (CartItem) o;
+        return Objects.equals(product.getId(), that.product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product.getId());
+    }
 }

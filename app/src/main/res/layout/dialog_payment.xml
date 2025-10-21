@@ -3,18 +3,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/textFinishOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Finalizar pedido"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="8dp"/>
+    android:layout_height="wrap_content"
+    android:background="#2f2f2f"> <!-- fundo escuro -->
 
     <EditText
         android:id="@+id/editMesa"
@@ -22,35 +12,42 @@
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/brown"/>
+        android:textColor="#FFFFFF"
+        android:textColorHint="#BBBBBB"
+        android:backgroundTint="#555555"/>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
 
         <RadioButton
             android:id="@+id/rbDinheiro"
             android:text="Dinheiro"
             android:checked="true"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/rbPix"
             android:text="Pix"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/rbDebito"
             android:text="Cartão de débito"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/rbCredito"
             android:text="Cartão de crédito"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RadioGroup>

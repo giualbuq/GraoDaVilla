@@ -74,7 +74,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         RadioButton rbDebito = dialogView.findViewById(R.id.rbDebito);
         RadioButton rbCredito = dialogView.findViewById(R.id.rbCredito);
 
-        new androidx.appcompat.app.AlertDialog.Builder(this)
+        new androidx.appcompat.app.AlertDialog.Builder(this, R.style.DarkAlertDialog)
                 .setTitle("Finalizar Pedido")
                 .setView(dialogView)
                 .setPositiveButton("Enviar", (dialog, which) -> {
