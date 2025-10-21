@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.graodavilla.R;
 import com.example.graodavilla.models.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONObject;
@@ -56,7 +57,7 @@ public class EditProductActivity extends AppCompatActivity {
     private final String CLOUD_NAME = "drt7lib2z";
     private final String UPLOAD_PRESET = "graoDaVilla";
 
-    private final String[] categorias = {"bebida quente", "doce", "salgado"};
+    private final String[] categorias = {"bebida quente", "bebida gelada", "doce", "salgado"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,15 @@ public class EditProductActivity extends AppCompatActivity {
         buttonSelectImage.setOnClickListener(v -> checkPermissionAndOpenGallery());
         buttonSave.setOnClickListener(v -> uploadImageAndSaveProduct());
         buttonCancel.setOnClickListener(v -> finish());
+        FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProductActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
+
+
     }
 
     private void fillFormWithProduct() {

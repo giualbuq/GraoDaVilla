@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
@@ -16,7 +17,7 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_delete"
         android:contentDescription="Remover item"
-        android:tint="#FF5555" />
+        app:tint="#FF5555" />
 
     <LinearLayout
         android:id="@+id/layoutCartContent"
@@ -88,7 +89,7 @@
                     android:layout_height="32dp"
                     android:src="@drawable/ic_minus"
                     android:background="@drawable/rounded_button_background"
-                    android:tint="#c4c4c4" />
+                    app:tint="#c4c4c4" />
 
                 <TextView
                     android:id="@+id/textQuantityCart"
@@ -105,7 +106,7 @@
                     android:layout_height="32dp"
                     android:src="@drawable/ic_add"
                     android:background="@drawable/rounded_button_background"
-                    android:tint="#c4c4c4" />
+                    app:tint="#c4c4c4" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

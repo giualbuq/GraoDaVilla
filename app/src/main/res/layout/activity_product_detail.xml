@@ -3,7 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2F2F2F">
+    android:background="#2F2F2F"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="16dp">
 
     <!-- Conteúdo principal com ScrollView -->
     <ScrollView
@@ -23,7 +27,7 @@
                 android:layout_height="240dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/defaultimage"
-                android:contentDescription="@string/product_image" />
+                android:contentDescription="Imagem exemplo" />
 
             <!-- Nome do produto com ícones de editar/deletar -->
             <LinearLayout

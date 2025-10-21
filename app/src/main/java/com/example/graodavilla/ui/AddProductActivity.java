@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.graodavilla.R;
 import com.example.graodavilla.models.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONObject;
@@ -74,7 +75,7 @@ public class AddProductActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         // Configura categorias do Spinner
-        String[] categorias = {"bebida quente", "doce", "salgado"};
+        String[] categorias = {"bebida quente", "bebida gelada", "doce", "salgado"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -87,6 +88,8 @@ public class AddProductActivity extends AppCompatActivity {
         buttonSelectImage.setOnClickListener(v -> checkPermissionAndOpenGallery());
         buttonSave.setOnClickListener(v -> uploadImageToCloudinary());
         buttonCancel.setOnClickListener(v -> finish());
+        FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> finish());
     }
 
     private void checkPermissionAndOpenGallery() {

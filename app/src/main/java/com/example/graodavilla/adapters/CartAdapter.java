@@ -79,10 +79,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         // Remover item com lixeira
         holder.buttonRemove.setOnClickListener(v -> {
             CartManager.getInstance().removeCartItem(item);
-            cartItems.remove(position);
             notifyItemRemoved(position);
             listener.onCartUpdated();
         });
+
     }
 
     @Override

@@ -1,82 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="200dp"
-    android:layout_height="wrap_content"
+    android:layout_height="210dp"
     android:layout_marginEnd="12dp"
-    app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/card_bg"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#404040"
+    app:strokeWidth="0dp"
+    app:strokeColor="@android:color/transparent">
 
-    <RelativeLayout
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<!-- Conteúdo do produto -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="130dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Imagem do produto"
+        android:background="@drawable/defaultimage" />
 
-        <!-- Conteúdo do produto -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="8dp"/>
 
-            <ImageView
-                android:id="@+id/imageProduct"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="Imagem do produto"
-                android:background="@drawable/defaultimage"/>
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:visibility="invisible"/>
 
-            <TextView
-                android:id="@+id/textName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="8dp"/>
+    <TextView
+        android:id="@+id/textPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:padding="8dp"/>
+</LinearLayout>
 
-            <TextView
-                android:id="@+id/textDescription"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:visibility="invisible"/>
+<!-- Ícones de edição/deleção -->
+<ImageView
+    android:id="@+id/iconEdit"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="8dp"
+    android:src="@drawable/ic_edit"
+    android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/textPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:padding="8dp"/>
-        </LinearLayout>
-
-        <!-- Ícones de edição/deleção -->
-        <ImageView
-            android:id="@+id/iconEdit"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_edit"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/iconDelete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_below="@id/iconEdit"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_delete"
-            android:visibility="gone"/>
-    </RelativeLayout>
-</com.google.android.material.card.MaterialCardView>
+<ImageView
+    android:id="@+id/iconDelete"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_below="@id/iconEdit"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="8dp"
+    android:src="@drawable/ic_delete"
+    android:visibility="gone"/>
+</RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>

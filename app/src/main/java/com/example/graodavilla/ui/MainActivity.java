@@ -24,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_PRODUCT_DETAIL = 201;
 
-    private RecyclerView recyclerHotDrinks, recyclerSnacks, recyclerDesserts;
-    private ProductAdapter adapterHot, adapterSnacks, adapterDesserts;
+    private RecyclerView recyclerHotDrinks, recyclerColdDrinks ,recyclerSnacks, recyclerDesserts;
+    private ProductAdapter adapterHot, adapterCold, adapterSnacks, adapterDesserts;
     private List<Product> hotDrinks = new ArrayList<>();
+    private List<Product> coldDrinks = new ArrayList<>();
     private List<Product> snacks = new ArrayList<>();
     private List<Product> desserts = new ArrayList<>();
     private FirebaseFirestore db;
@@ -40,14 +41,17 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         recyclerHotDrinks = findViewById(R.id.recyclerHotDrinks);
+        recyclerColdDrinks = findViewById(R.id.recyclerColdDrinks);
         recyclerSnacks = findViewById(R.id.recyclerSnacks);
         recyclerDesserts = findViewById(R.id.recyclerDesserts);
 
         adapterHot = new ProductAdapter(this, hotDrinks, this::openProductDetail);
+        adapterCold = new ProductAdapter(this, coldDrinks, this::openProductDetail);
         adapterSnacks = new ProductAdapter(this, snacks, this::openProductDetail);
         adapterDesserts = new ProductAdapter(this, desserts, this::openProductDetail);
 
         setupRecycler(recyclerHotDrinks, adapterHot);
+        setupRecycler(recyclerColdDrinks, adapterCold);
         setupRecycler(recyclerSnacks, adapterSnacks);
         setupRecycler(recyclerDesserts, adapterDesserts);
 
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     hotDrinks.clear();
+                    coldDrinks.clear();
                     snacks.clear();
                     desserts.clear();
 
@@ -94,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
                             case "bebida quente":
                                 hotDrinks.add(p);
                                 break;
+                            case "bebida gelada":
+                                coldDrinks.add(p);
+                                break;
                             case "salgado":
                                 snacks.add(p);
                                 break;
@@ -104,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     adapterHot.notifyDataSetChanged();
+                    adapterCold.notifyDataSetChanged();
                     adapterSnacks.notifyDataSetChanged();
                     adapterDesserts.notifyDataSetChanged();
                 });
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             if (updatedProduct != null) {
                 // Atualiza o produto na lista correta
                 updateProductInList(updatedProduct, hotDrinks, adapterHot);
+                updateProductInList(updatedProduct, coldDrinks, adapterCold);
                 updateProductInList(updatedProduct, snacks, adapterSnacks);
                 updateProductInList(updatedProduct, desserts, adapterDesserts);
             }
