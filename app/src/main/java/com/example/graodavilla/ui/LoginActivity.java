@@ -22,6 +22,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textRegister;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
 
@@ -39,16 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inicializar Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        // Vincular componentes
         initializeViews();
-
-        // Configurar Google Sign In
         configureGoogleSignIn();
-
-        // Configurar listeners
         setupClickListeners();
     }
 
@@ -65,34 +63,13 @@ public class LoginActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private void setupClickListeners() {
-        // Botão Entrar com Email/Senha
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptEmailLogin();
-            }
-        });
-
-        // Botão Login com Google
-        buttonGoogleLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInWithGoogle();
-            }
-        });
-
-        // Link Cadastrar
-        textRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRegisterActivity();
-            }
-        });
+        buttonLogin.setOnClickListener(view -> attemptEmailLogin());
+        buttonGoogleLogin.setOnClickListener(v -> signInWithGoogle());
+        textRegister.setOnClickListener(view -> goToRegisterActivity());
     }
 
     private void attemptEmailLogin() {
@@ -107,46 +84,25 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validateInputs(String email, String password) {
         if (email.isEmpty()) {
             editEmail.setError("Digite seu e-mail");
-            editEmail.requestFocus();
             return false;
         }
-
         if (password.isEmpty()) {
             editPassword.setError("Digite sua senha");
-            editPassword.requestFocus();
             return false;
         }
-
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editEmail.setError("Digite um e-mail válido");
-            editEmail.requestFocus();
-            return false;
-        }
-
-        if (password.length() < 6) {
-            editPassword.setError("Senha deve ter pelo menos 6 caracteres");
-            editPassword.requestFocus();
-            return false;
-        }
-
         return true;
     }
 
     private void loginWithEmail(String email, String password) {
         showLoading(true);
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     showLoading(false);
-
                     if (task.isSuccessful()) {
-                        // Login bem-sucedido
                         FirebaseUser user = mAuth.getCurrentUser();
-                        showToast("Login realizado com sucesso!");
-                        goToMainActivity();
+                        fetchUserRole(user);
                     } else {
-                        String errorMessage = getErrorMessage(task.getException());
-                        showToast(errorMessage);
+                        showToast("Erro ao fazer login: " + task.getException().getMessage());
                     }
                 });
     }
@@ -160,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -178,66 +133,60 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     showLoading(false);
-
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        showToast("Login com Google realizado!");
-                        goToMainActivity();
+                        fetchUserRole(user);
                     } else {
                         showToast("Falha na autenticação com Google");
                     }
                 });
     }
 
-    private String getErrorMessage(Exception exception) {
-        if (exception == null) return "Erro desconhecido";
+    private void fetchUserRole(FirebaseUser user) {
+        if (user == null) return;
 
-        String error = exception.getMessage();
-        if (error.contains("password is invalid")) {
-            return "Senha incorreta";
-        } else if (error.contains("no user record")) {
-            return "E-mail não cadastrado";
-        } else if (error.contains("network error")) {
-            return "Erro de conexão. Verifique sua internet";
-        } else {
-            return "Erro: " + error;
-        }
+        db.collection("users")
+                .document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        boolean isAdmin = document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin");
+                        goToMainActivity(isAdmin);
+                    } else {
+                        showToast("Usuário sem registro no Firestore");
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Erro ao buscar dados do usuário"));
     }
 
     private void showLoading(boolean loading) {
         buttonLogin.setEnabled(!loading);
         buttonGoogleLogin.setEnabled(!loading);
         textRegister.setEnabled(!loading);
-
-        if (loading) {
-            buttonLogin.setText("Entrando...");
-        } else {
-            buttonLogin.setText("Entrar");
-        }
+        buttonLogin.setText(loading ? "Entrando..." : "Entrar");
     }
 
     private void showToast(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void goToMainActivity() {
+    private void goToMainActivity(boolean isAdmin) {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("isAdmin", isAdmin);
         startActivity(intent);
         finish();
     }
 
     private void goToRegisterActivity() {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        // Verificar se usuário já está logado
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            goToMainActivity();
+            fetchUserRole(currentUser);
         }
     }
 }

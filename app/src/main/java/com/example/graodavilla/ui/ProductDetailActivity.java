@@ -2,6 +2,7 @@ package com.example.graodavilla.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.example.graodavilla.repositories.CartManager;
 import com.example.graodavilla.models.Product;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.NumberFormat;
@@ -65,11 +68,12 @@ public class ProductDetailActivity extends AppCompatActivity {
             return;
         }
 
-        // Preencher dados
+        // Atualiza UI
         updateProductUI(product);
-
-        // Atualiza total inicial
         updateTotal();
+
+        // Carregar se o usuário é admin e ajustar visibilidade dos botões
+        checkAdminStatus();
 
         // Incrementar quantidade
         buttonIncrease.setOnClickListener(v -> {
@@ -78,7 +82,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             updateTotal();
         });
 
-        // Diminuir quantidade (mínimo 1)
+        // Diminuir quantidade
         buttonDecrease.setOnClickListener(v -> {
             if (quantity > 1) {
                 quantity--;
@@ -91,9 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         buttonAddToCart.setOnClickListener(v -> {
             CartManager.getInstance().addToCart(product, quantity);
             Toast.makeText(this, product.getName() + " adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-            // Volta para a MainActivity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         });
 
@@ -101,11 +103,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         buttonEdit.setOnClickListener(v -> {
             Intent intent = new Intent(this, EditProductActivity.class);
             intent.putExtra("product", product);
-            intent.putExtra("productId", product.getId()); // garante que o EditActivity tenha o ID
+            intent.putExtra("productId", product.getId());
             startActivityForResult(intent, REQUEST_EDIT_PRODUCT);
         });
 
-        // Deletar produto
+        // Excluir produto
         buttonDelete.setOnClickListener(v -> {
             if (product.getId() == null || product.getId().isEmpty()) {
                 Toast.makeText(this, "Erro: ID do produto não definido", Toast.LENGTH_LONG).show();
@@ -130,7 +132,27 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    // Atualiza a UI com os dados do produto
+    private void checkAdminStatus() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        Boolean isAdmin = snapshot.getBoolean("isAdmin");
+                        if (isAdmin != null && isAdmin) {
+                            // Usuário é admin → mostra botões
+                            buttonEdit.setVisibility(View.VISIBLE);
+                            buttonDelete.setVisibility(View.VISIBLE);
+                        } else {
+                            // Usuário não é admin → oculta botões
+                            buttonEdit.setVisibility(View.GONE);
+                            buttonDelete.setVisibility(View.GONE);
+                        }
+                    }
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Erro ao verificar permissões", Toast.LENGTH_SHORT).show());
+    }
+
     private void updateProductUI(Product product) {
         textName.setText(product.getName());
         textDescription.setText(product.getDescription());
@@ -151,14 +173,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         textQuantity.setText(String.valueOf(quantity));
     }
 
-
-    // Atualiza o total baseado na quantidade atual
     private void updateTotal() {
         double total = product.getPrice() * quantity;
         NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         textTotal.setText("Total: " + format.format(total));
     }
-    // Receber resultado do EditProductActivity
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,4 +193,3 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 }
-//preço, alinhamento e espaçmento

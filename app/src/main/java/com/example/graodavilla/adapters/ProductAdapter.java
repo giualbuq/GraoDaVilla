@@ -21,25 +21,29 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private List<Product> list;
     private OnProductClickListener clickListener;
+    private boolean isAdmin; // ✅
 
     private static final int ITEM_PRODUCT = 0;
     private static final int ITEM_ADD = 1;
 
-    // Interface para callback
     public interface OnProductClickListener {
         void onProductClick(Product product);
     }
 
-    public ProductAdapter(Context context, List<Product> list, OnProductClickListener clickListener) {
+    public ProductAdapter(Context context, List<Product> list, OnProductClickListener clickListener, boolean isAdmin) {
         this.context = context;
         this.list = list;
         this.clickListener = clickListener;
+        this.isAdmin = isAdmin;
     }
 
     @Override
     public int getItemViewType(int position) {
-        // O último item será o card de "+"
-        return position == list.size() ? ITEM_ADD : ITEM_PRODUCT;
+        // ✅ O último item é o "+" só se for admin
+        if (isAdmin && position == list.size()) {
+            return ITEM_ADD;
+        }
+        return ITEM_PRODUCT;
     }
 
     @NonNull
@@ -62,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             vh.textName.setText(p.getName());
             vh.textDescription.setText(p.getDescription());
-            vh.textPrice.setText(String.format("R$ %.2f", p.getPrice())); // ✅ preço com 2 casas decimais
+            vh.textPrice.setText(String.format("R$ %.2f", p.getPrice()));
 
             String url = p.getImageUrl();
             if (url != null && !url.isEmpty()) {
@@ -74,16 +78,12 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 vh.imageProduct.setImageResource(R.drawable.defaultimage);
             }
 
-            // Clique usa o callback
             vh.itemView.setOnClickListener(v -> {
-                if (clickListener != null) {
-                    clickListener.onProductClick(p);
-                }
+                if (clickListener != null) clickListener.onProductClick(p);
             });
 
         } else if (holder instanceof AddViewHolder) {
-            AddViewHolder avh = (AddViewHolder) holder;
-            avh.itemView.setOnClickListener(v -> {
+            holder.itemView.setOnClickListener(v -> {
                 context.startActivity(
                         new android.content.Intent(context, com.example.graodavilla.ui.AddProductActivity.class)
                 );
@@ -93,11 +93,10 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        // +1 para o card "Adicionar"
-        return list.size() + 1;
+        // ✅ se for admin, mostra o "+" também
+        return isAdmin ? list.size() + 1 : list.size();
     }
 
-    // ViewHolder de produtos
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView imageProduct;
         TextView textName, textDescription, textPrice;
@@ -111,7 +110,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    // ViewHolder do card "+"
     static class AddViewHolder extends RecyclerView.ViewHolder {
         public AddViewHolder(@NonNull View itemView) {
             super(itemView);

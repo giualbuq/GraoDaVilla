@@ -92,25 +92,6 @@
                     android:textSize="18sp"
                     android:layout_marginStart="12dp"/>
             </LinearLayout>
-
-            <!-- Telefone -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:id="@+id/textPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="numero"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:layout_marginStart="12dp"/>
-            </LinearLayout>
-
-
         </LinearLayout>
 
         <!-- Botão Sair -->
@@ -138,3 +119,4 @@
     app:tint="#ffffff"/>
 
 </FrameLayout>
+
