@@ -67,18 +67,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="10dp"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="24dp"
-                android:elevation="4dp">
+                android:elevation="4dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp" >
 
                 <TextView
                     android:text="Título"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
+                    android:layout_width="wrap_content"
+                    />
                 <EditText
                     android:id="@+id/editName"
                     android:layout_width="match_parent"
@@ -89,12 +92,12 @@
                     android:textSize="16sp"
                     android:background="#525252"
                     android:padding="10dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="15dp" />
                 <TextView
                     android:text="Categoria"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
                 <Spinner
@@ -105,13 +108,14 @@
                     android:textColor="#c4c4c4"
                     android:textColorHint="#c4c4c4"
                     android:padding="10dp"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
                     android:text="Preço"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
 
@@ -126,13 +130,13 @@
                     android:background="#525252"
                     android:inputType="numberDecimal"
                     android:padding="10dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="15dp" />
 
                 <TextView
                     android:text="Descrição"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"/>
                 <EditText
@@ -147,7 +151,7 @@
                     android:inputType="textMultiLine"
                     android:minLines="3"
                     android:padding="10dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start|top" />
             </LinearLayout>
         </LinearLayout>

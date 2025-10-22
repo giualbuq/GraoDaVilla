@@ -4,12 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="25dp"
     android:background="#2F2F2F"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
     android:paddingTop="?attr/actionBarSize"
-    android:paddingBottom="16dp">
+    android:paddingBottom="16dp"
+    >
 
     <!-- Cabeçalho com botão voltar e título -->
     <LinearLayout
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="13dp">
 
         <ImageView
             android:id="@+id/buttonBack"
@@ -53,7 +54,9 @@
         android:id="@+id/recyclerCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"/>
 
     <TextView
         android:id="@+id/textCartTotal"

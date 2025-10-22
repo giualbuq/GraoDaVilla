@@ -4,7 +4,9 @@
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2f2f2f"> <!-- fundo escuro -->
+    android:background="#2f2f2f"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"> <!-- fundo escuro -->
 
     <EditText
         android:id="@+id/editMesa"

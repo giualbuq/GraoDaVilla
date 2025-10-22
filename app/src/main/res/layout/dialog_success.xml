@@ -2,15 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#3A3A3A"
+    android:background="#2F2F2F"
     android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:fitsSystemWindows="true"
-    android:clipToPadding="false"
-    android:paddingTop="?attr/actionBarSize"
-    android:paddingBottom="16dp">
+    >
 
     <!-- Ícone de check -->
     <ImageView

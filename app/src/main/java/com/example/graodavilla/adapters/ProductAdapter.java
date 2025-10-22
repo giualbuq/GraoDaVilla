@@ -62,7 +62,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             vh.textName.setText(p.getName());
             vh.textDescription.setText(p.getDescription());
-            vh.textPrice.setText("R$ " + p.getPrice());
+            vh.textPrice.setText(String.format("R$ %.2f", p.getPrice())); // ✅ preço com 2 casas decimais
 
             String url = p.getImageUrl();
             if (url != null && !url.isEmpty()) {
@@ -84,7 +84,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else if (holder instanceof AddViewHolder) {
             AddViewHolder avh = (AddViewHolder) holder;
             avh.itemView.setOnClickListener(v -> {
-                // Mantém abrindo AddProductActivity diretamente
                 context.startActivity(
                         new android.content.Intent(context, com.example.graodavilla.ui.AddProductActivity.class)
                 );

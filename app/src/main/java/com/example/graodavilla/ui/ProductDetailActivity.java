@@ -3,7 +3,6 @@ package com.example.graodavilla.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,21 +12,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.graodavilla.R;
 import com.example.graodavilla.repositories.CartManager;
-import com.example.graodavilla.models.CartItem;
 import com.example.graodavilla.models.Product;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class ProductDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_EDIT_PRODUCT = 101;
 
-    private ImageView imageProduct;
-    private TextView textName, textDescription, textPrice, textQuantity;
-    private ImageButton buttonIncrease, buttonDecrease;
+    private ImageView imageProduct, buttonEdit, buttonDelete;
+    private TextView textName, textDescription, textPrice, textQuantity, textTotal;
+    private ImageView buttonIncrease, buttonDecrease;
     private Button buttonAddToCart;
-    private ImageView buttonEdit, buttonDelete;
 
     private FirebaseFirestore db;
     private Product product;
@@ -41,13 +41,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(v -> finish());
 
-
         // findViewById
         imageProduct = findViewById(R.id.imageProductDetail);
         textName = findViewById(R.id.textNameDetail);
         textDescription = findViewById(R.id.textDescriptionDetail);
         textPrice = findViewById(R.id.textPriceDetail);
         textQuantity = findViewById(R.id.textQuantity);
+        textTotal = findViewById(R.id.textTotal);
         buttonIncrease = findViewById(R.id.buttonIncrease);
         buttonDecrease = findViewById(R.id.buttonDecrease);
         buttonAddToCart = findViewById(R.id.buttonAddToCart);
@@ -68,10 +68,14 @@ public class ProductDetailActivity extends AppCompatActivity {
         // Preencher dados
         updateProductUI(product);
 
+        // Atualiza total inicial
+        updateTotal();
+
         // Incrementar quantidade
         buttonIncrease.setOnClickListener(v -> {
             quantity++;
             textQuantity.setText(String.valueOf(quantity));
+            updateTotal();
         });
 
         // Diminuir quantidade (mínimo 1)
@@ -79,6 +83,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (quantity > 1) {
                 quantity--;
                 textQuantity.setText(String.valueOf(quantity));
+                updateTotal();
             }
         });
 
@@ -100,13 +105,13 @@ public class ProductDetailActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_EDIT_PRODUCT);
         });
 
+        // Deletar produto
         buttonDelete.setOnClickListener(v -> {
             if (product.getId() == null || product.getId().isEmpty()) {
                 Toast.makeText(this, "Erro: ID do produto não definido", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // Material AlertDialog com estilo do app
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Excluir produto")
                     .setMessage("Tem certeza que deseja excluir \"" + product.getName() + "\"?")
@@ -129,7 +134,9 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void updateProductUI(Product product) {
         textName.setText(product.getName());
         textDescription.setText(product.getDescription());
-        textPrice.setText("R$ " + product.getPrice());
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        textPrice.setText(format.format(product.getPrice()));
 
         String url = product.getImageUrl();
         if (url != null && !url.isEmpty()) {
@@ -144,6 +151,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         textQuantity.setText(String.valueOf(quantity));
     }
 
+
+    // Atualiza o total baseado na quantidade atual
+    private void updateTotal() {
+        double total = product.getPrice() * quantity;
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        textTotal.setText("Total: " + format.format(total));
+    }
     // Receber resultado do EditProductActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,7 +168,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (updatedProduct != null) {
                 product = updatedProduct;
                 updateProductUI(product);
+                updateTotal();
             }
         }
     }
 }
+//preço, alinhamento e espaçmento
