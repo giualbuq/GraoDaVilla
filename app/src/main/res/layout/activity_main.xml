@@ -1,35 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2F2F2F"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:fitsSystemWindows="true"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    >
+    android:orientation="vertical">
 
     <!-- Top Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingBottom="16dp"
-        android:paddingTop="3dp"
-        android:paddingStart="7dp"
-        android:paddingEnd="7dp">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <!-- Ícone Usuário -->
         <ImageView
             android:id="@+id/iconUser"
             android:layout_width="30dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_person"
-            android:contentDescription="Usuário" />
+            android:contentDescription="Usuário"
+            android:src="@drawable/ic_person" />
 
         <!-- Espaço central -->
         <View
@@ -55,37 +47,29 @@
         <FrameLayout
             android:id="@+id/cartContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:paddingTop="5dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iconCart"
-                android:layout_width="35dp"
+                android:layout_width="27dp"
                 android:layout_height="55dp"
-                android:src="@drawable/cart_shopping"
-                android:padding="3dp"
                 android:contentDescription="Carrinho"
-                android:layout_margin="2dp"
-                android:paddingEnd="7dp"
-                />
+                android:src="@drawable/cart_shopping" />
 
             <TextView
                 android:id="@+id/cartBadge"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/bg_cart_badge"
+                android:gravity="center"
                 android:textColor="@android:color/black"
                 android:textSize="11sp"
-                android:gravity="center"
-                android:visibility="gone"
-                android:layout_gravity="end|top"
                 android:translationX="5dp"
                 android:translationY="-2dp"
-                android:layout_margin="5dp"
-                android:layout_marginStart="10dp"/>
+                android:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>
@@ -94,13 +78,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        >
+        android:overScrollMode="never">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
 
             <!-- Card de adicionar produto (apenas admins) -->
             <androidx.cardview.widget.CardView
@@ -114,25 +98,25 @@
                 app:cardElevation="4dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_add"
                         android:contentDescription="Adicionar produto"
+                        android:src="@drawable/ic_add"
                         app:tint="#FFFFFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
                         android:text="Adicionar Produto"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:paddingStart="12dp"/>
+                        android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -140,10 +124,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingBottom="12dp">
 
                 <TextView
@@ -151,16 +136,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bebidas Quentes"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_marginStart="8dp"/>
+                    android:background="#FFFFFF" />
             </LinearLayout>
 
 
@@ -169,18 +155,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Bebidas Geladas -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingBottom="12dp">
 
                 <TextView
@@ -188,16 +176,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bebidas Geladas"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_marginStart="8dp"/>
+                    android:background="#FFFFFF" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -205,18 +194,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Salgados -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingBottom="12dp">
 
                 <TextView
@@ -224,16 +215,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Salgados"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_marginStart="8dp"/>
+                    android:background="#FFFFFF" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -241,18 +233,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Doces -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingBottom="12dp">
 
                 <TextView
@@ -260,16 +254,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doces"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_marginStart="8dp"/>
+                    android:background="#FFFFFF" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -277,9 +272,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

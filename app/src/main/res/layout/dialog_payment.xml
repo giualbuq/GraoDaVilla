@@ -81,35 +81,35 @@
 
         <Button
             android:id="@+id/buttonDinheiro"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
             android:text="Dinheiro"
             android:textColor="#FFFFFF"
-            android:background="@drawable/bg_button_payment_unselected"
-            android:layout_marginEnd="8dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="48dp"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <Button
             android:id="@+id/buttonDebito"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
             android:text="Cartão"
             android:textColor="#FFFFFF"
-            android:background="@drawable/bg_button_payment_unselected"
-            android:layout_marginEnd="8dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="48dp"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <Button
             android:id="@+id/buttonPix"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
             android:text="Pix"
             android:textColor="#FFFFFF"
-            android:background="@drawable/bg_button_payment_unselected"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="48dp"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
     </LinearLayout>
 
 </LinearLayout>
