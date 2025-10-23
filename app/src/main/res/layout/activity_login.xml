@@ -24,7 +24,7 @@
             android:layout_height="110dp"
             android:src="@drawable/logo_graodavilla"
             android:contentDescription="Logo do app"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/textWelcome"
@@ -48,7 +48,74 @@
             android:textStyle="normal"
             android:clickable="true"
             android:focusable="true"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="16dp"/>
+        <!-- Seletor Login/Cadastro -->
+        <LinearLayout
+            android:id="@+id/switchAuthMode"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_switch_border"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <!-- Botão Login -->
+            <Button
+                android:id="@+id/buttonTabLogin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Login"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_switch_selected_left"
+                android:fontFamily="@font/roboto_bold"/>
+
+            <!-- Botão Cadastro -->
+            <Button
+                android:id="@+id/buttonTabCadastro"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Cadastro"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto_bold"/>
+        </LinearLayout>
+
+        <!-- Botão Login com Google -->
+        <LinearLayout
+            android:id="@+id/buttonGoogleLogin"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:backgroundTint="@color/divider_gray"
+            android:background="@drawable/bg_edittext_round"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_google"
+                android:contentDescription="Ícone Google"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrar com Google"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_bold" />
+        </LinearLayout>
 
         <!-- E-mail -->
         <LinearLayout
@@ -129,49 +196,5 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto_bold"/>
 
-        <!-- Botão Login com Google -->
-        <!-- Botão Login com Google -->
-        <LinearLayout
-            android:id="@+id/buttonGoogleLogin"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:backgroundTint="@color/divider_gray"
-            android:background="@drawable/bg_edittext_round"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_google"
-                android:contentDescription="Ícone Google"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Entrar com Google"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto_bold" />
-        </LinearLayout>
-
-
-        <!-- Link para cadastro -->
-        <TextView
-            android:id="@+id/textRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Não tem conta? Cadastrar"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:fontFamily="@font/roboto_regular"
-            android:clickable="true"
-            android:focusable="true"/>
     </LinearLayout>
 </ScrollView>

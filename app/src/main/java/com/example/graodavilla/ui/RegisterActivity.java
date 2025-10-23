@@ -43,8 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
         editRegisterPassword = findViewById(R.id.editRegisterPassword);
         editRegisterConfirmPassword = findViewById(R.id.editRegisterConfirmPassword);
         buttonRegister = findViewById(R.id.buttonRegister);
-        buttonGoogleRegister = findViewById(R.id.buttonGoogleRegister);
-        textGoToLogin = findViewById(R.id.textGoToLogin);
+        buttonGoogleRegister = findViewById(R.id.buttonGoogleRegister); // 🔹 Corrigido aqui
+        textGoToLogin = findViewById(R.id.buttonTabLogin);
     }
 
     private void configureGoogleSignIn() {
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
             userData.put("name", name);
             userData.put("email", email);
             userData.put("createdAt", com.google.firebase.Timestamp.now());
-            userData.put("isAdmin", false); // 🔹 Define padrão
+            userData.put("isAdmin", false);
 
             db.collection("users").document(user.getUid()).set(userData);
         }
@@ -154,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
         userData.put("email", account.getEmail());
         userData.put("photoUrl", account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "");
         userData.put("createdAt", com.google.firebase.Timestamp.now());
-        userData.put("isAdmin", false); // 🔹 Sempre padrão
+        userData.put("isAdmin", false);
         db.collection("users").document(user.getUid()).set(userData);
     }
 

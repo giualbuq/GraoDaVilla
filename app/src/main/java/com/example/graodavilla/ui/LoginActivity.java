@@ -2,7 +2,6 @@ package com.example.graodavilla.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,8 +21,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonGoogleLogin = findViewById(R.id.buttonGoogleLogin);
-        textRegister = findViewById(R.id.textRegister);
+        textRegister = findViewById(R.id.buttonTabCadastro);
     }
 
     private void configureGoogleSignIn() {
@@ -142,6 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Verifica se o usuário existe no Firestore.
+     * Se não existir, cria um novo registro automaticamente.
+     */
     private void fetchUserRole(FirebaseUser user) {
         if (user == null) return;
 
@@ -153,10 +158,35 @@ public class LoginActivity extends AppCompatActivity {
                         boolean isAdmin = document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin");
                         goToMainActivity(isAdmin);
                     } else {
-                        showToast("Usuário sem registro no Firestore");
+                        // Usuário ainda não cadastrado → cria automaticamente
+                        createUserInFirestore(user);
                     }
                 })
                 .addOnFailureListener(e -> showToast("Erro ao buscar dados do usuário"));
+    }
+
+    /**
+     * Cria novo documento do usuário no Firestore (caso não exista)
+     */
+    private void createUserInFirestore(FirebaseUser user) {
+        if (user == null) return;
+
+        Map<String, Object> newUser = new HashMap<>();
+        newUser.put("uid", user.getUid());
+        newUser.put("name", user.getDisplayName() != null ? user.getDisplayName() : "Usuário");
+        newUser.put("email", user.getEmail());
+        newUser.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
+        newUser.put("isAdmin", false); // padrão: não administrador
+        newUser.put("createdAt", System.currentTimeMillis());
+
+        db.collection("users")
+                .document(user.getUid())
+                .set(newUser)
+                .addOnSuccessListener(aVoid -> {
+                    showToast("Usuário cadastrado com sucesso!");
+                    goToMainActivity(false);
+                })
+                .addOnFailureListener(e -> showToast("Erro ao cadastrar usuário: " + e.getMessage()));
     }
 
     private void showLoading(boolean loading) {
