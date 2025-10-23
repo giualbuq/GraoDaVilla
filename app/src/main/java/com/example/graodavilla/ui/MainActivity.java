@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private TextView cartBadge;
-    private boolean isAdmin = false; // ✅ flag global
+    private boolean isAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

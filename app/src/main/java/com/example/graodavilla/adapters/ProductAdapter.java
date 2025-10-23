@@ -21,7 +21,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private List<Product> list;
     private OnProductClickListener clickListener;
-    private boolean isAdmin; // ✅
+    private boolean isAdmin;
 
     private static final int ITEM_PRODUCT = 0;
     private static final int ITEM_ADD = 1;
@@ -39,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        // ✅ O último item é o "+" só se for admin
+        // O último item é o "+" só se for admin
         if (isAdmin && position == list.size()) {
             return ITEM_ADD;
         }
@@ -66,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             vh.textName.setText(p.getName());
             vh.textDescription.setText(p.getDescription());
-            vh.textPrice.setText(String.format("R$ %.2f", p.getPrice()));
+            vh.textPrice.setText(String.format("R$%.2f", p.getPrice()));
 
             String url = p.getImageUrl();
             if (url != null && !url.isEmpty()) {

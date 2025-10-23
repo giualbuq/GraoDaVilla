@@ -21,12 +21,17 @@
 
             <!-- Imagem do Produto -->
             <FrameLayout
+                android:id="@+id/addProductSection"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
+                <!-- Imagem do Produto -->
                 <ImageView
-                    android:id="@+id/imageProduct"
+                    android:id="@+id/addImageProduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -34,22 +39,29 @@
                     android:contentDescription="Imagem do Produto"
                     android:clipToOutline="true" />
 
+                <!-- Sobreposição transparente escura -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80000000" />
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_gravity="center"
                     android:gravity="center">
 
-                    <Button
-                        android:id="@+id/iconSelectImage"
+                    <ImageView
+                        android:id="@+id/addIconSelectImage"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:background="@drawable/ic_download"
-                        android:elevation="6dp"
-                        app:tint="#FFFFFF" />
+                        android:src="@drawable/ic_download"
+                        android:contentDescription="Selecionar Imagem"
+                        app:tint="#d1d1d1" />
+
                 </LinearLayout>
             </FrameLayout>
+
 
             <!-- ProgressBar -->
             <ProgressBar

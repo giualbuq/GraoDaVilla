@@ -21,7 +21,8 @@
             android:layout_width="30dp"
             android:layout_height="50dp"
             android:contentDescription="Usuário"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/ic_person"
+            android:layout_marginStart="10dp"/>
 
         <!-- Espaço central -->
         <View
@@ -54,7 +55,8 @@
                 android:layout_width="27dp"
                 android:layout_height="55dp"
                 android:contentDescription="Carrinho"
-                android:src="@drawable/cart_shopping" />
+                android:src="@drawable/cart_shopping"
+                android:layout_marginEnd="10dp"/>
 
             <TextView
                 android:id="@+id/cartBadge"
