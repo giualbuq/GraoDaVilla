@@ -1,54 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2f2f2f"> <!-- fundo escuro -->
+    android:background="#2F2F2F">
 
-    <EditText
-        android:id="@+id/editMesa"
-        android:hint="Número da mesa"
-        android:inputType="number"
-        android:layout_width="match_parent"
+    <!-- Total -->
+    <TextView
+        android:id="@+id/textTotalDialog"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Total: R$ 0,00"
         android:textColor="#FFFFFF"
-        android:textColorHint="#BBBBBB"
-        android:backgroundTint="#555555"/>
+        android:textSize="18sp"
+        android:layout_marginTop="12dp" />
 
-    <RadioGroup
+    <!-- Controle de mesa -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:text="Mesa:"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonMinusMesa"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ic_minus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:textSize="18sp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/textMesaNumber"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <Button
+            android:id="@+id/buttonPlusMesa"
+            android:text="+"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ic_add"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- Formas de pagamento -->
+    <TextView
+        android:text="Forma de pagamento:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="15dp">
 
-        <RadioButton
-            android:id="@+id/rbDinheiro"
-            android:text="Dinheiro"
-            android:checked="true"
-            android:textColor="#FFFFFF"
+        <Button
+            android:id="@+id/buttonDinheiro"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
+            android:text="Dinheiro"
+            android:textColor="#FFFFFF"
+            android:textSize="13dp" />
 
-        <RadioButton
-            android:id="@+id/rbPix"
+        <Button
+            android:id="@+id/buttonDebito"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
+            android:text="Cartão"
+            android:textColor="#FFFFFF"
+            android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/buttonPix"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_payment_unselected"
             android:text="Pix"
             android:textColor="#FFFFFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="13dp" />
+    </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/rbDebito"
-            android:text="Cartão de débito"
-            android:textColor="#FFFFFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <RadioButton
-            android:id="@+id/rbCredito"
-            android:text="Cartão de crédito"
-            android:textColor="#FFFFFF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RadioGroup>
 </LinearLayout>

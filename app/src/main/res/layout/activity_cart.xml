@@ -4,12 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="#2F2F2F"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
-    android:paddingTop="?attr/actionBarSize"
-    android:paddingBottom="16dp">
+    >
 
     <!-- Cabeçalho com botão voltar e título -->
     <LinearLayout
@@ -17,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginBottom="8dp">
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="13dp">
 
         <ImageView
             android:id="@+id/buttonBack"
@@ -53,7 +54,9 @@
         android:id="@+id/recyclerCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
 
     <TextView
         android:id="@+id/textCartTotal"
@@ -63,7 +66,9 @@
         android:textColor="@color/white"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        android:layout_width="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
 
     <Button
         android:id="@+id/buttonCartPay"
@@ -72,6 +77,8 @@
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_margin="16dp"
+        />
 
 </LinearLayout>

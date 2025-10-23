@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.graodavilla.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button buttonLogout;
-    private TextView textName, textEmail, textPhone;
+    private TextView textName, textEmail;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -33,6 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> finish());
+
         // Vincular componentes
         initializeViews();
 
@@ -47,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
         buttonLogout = findViewById(R.id.buttonLogout);
         textName = findViewById(R.id.textName);
         textEmail = findViewById(R.id.textEmail);
-        textPhone = findViewById(R.id.textPhone);
     }
 
     private void loadUserData() {
@@ -73,13 +76,6 @@ public class ProfileActivity extends AppCompatActivity {
             textName.setText(currentUser.getDisplayName());
         } else {
             textName.setText("User");
-        }
-
-        // Telefone (pode não estar disponível)
-        if (currentUser.getPhoneNumber() != null && !currentUser.getPhoneNumber().isEmpty()) {
-            textPhone.setText(currentUser.getPhoneNumber());
-        } else {
-            textPhone.setText("Não informado");
         }
     }
 
@@ -110,14 +106,6 @@ public class ProfileActivity extends AppCompatActivity {
             textName.setText(name);
         }
 
-        // Telefone do Firestore
-        if (document.contains("phone") && document.getString("phone") != null) {
-            String phone = document.getString("phone");
-            textPhone.setText(formatPhoneNumber(phone));
-        } else if (document.contains("phoneNumber") && document.getString("phoneNumber") != null) {
-            String phone = document.getString("phoneNumber");
-            textPhone.setText(formatPhoneNumber(phone));
-        }
     }
 
     private void createUserDocumentInFirestore() {
@@ -138,21 +126,6 @@ public class ProfileActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     showToast("Erro ao criar perfil: " + e.getMessage());
                 });
-    }
-
-    private String formatPhoneNumber(String phone) {
-        if (phone == null || phone.isEmpty()) {
-            return "Não informado";
-        }
-
-        // Formatar número de telefone (opcional)
-        if (phone.length() == 11) {
-            return "(" + phone.substring(0, 2) + ") " + phone.substring(2, 7) + "-" + phone.substring(7);
-        } else if (phone.length() == 10) {
-            return "(" + phone.substring(0, 2) + ") " + phone.substring(2, 6) + "-" + phone.substring(6);
-        }
-
-        return phone;
     }
 
     private void setupLogoutButton() {

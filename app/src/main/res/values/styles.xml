@@ -8,6 +8,8 @@
         <item name="colorSurfaceVariant">@color/card_bg</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:statusBarColor">#2f2f2f</item>
+
         <!-- Tema do dialog para herdar cores e cantos -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.GraoDaVilla.MaterialAlertDialog</item>
     </style>

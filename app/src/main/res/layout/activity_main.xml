@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2F2F2F"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:fitsSystemWindows="true"
-    android:clipToPadding="false"
-    android:paddingTop="?attr/actionBarSize"
-    android:paddingBottom="16dp">
+    android:orientation="vertical">
 
     <!-- Top Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingBottom="16dp">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <!-- Ícone Usuário -->
         <ImageView
             android:id="@+id/iconUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_person"
-            android:contentDescription="Usuário" />
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:contentDescription="Usuário"
+            android:src="@drawable/ic_person" />
 
         <!-- Espaço central -->
         <View
@@ -37,8 +32,8 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:contentDescription="Logo"
             android:src="@drawable/logo_graodavilla" />
 
@@ -48,12 +43,35 @@
             android:layout_weight="1" />
 
         <!-- Ícone Carrinho -->
-        <ImageView
-            android:id="@+id/iconCart"
+        <!-- Ícone Carrinho com contador -->
+        <FrameLayout
+            android:id="@+id/cartContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_shopping_cart"
-            android:contentDescription="Carrinho" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iconCart"
+                android:layout_width="27dp"
+                android:layout_height="55dp"
+                android:contentDescription="Carrinho"
+                android:src="@drawable/cart_shopping" />
+
+            <TextView
+                android:id="@+id/cartBadge"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_cart_badge"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="11sp"
+                android:translationX="5dp"
+                android:translationY="-2dp"
+                android:visibility="gone" />
+        </FrameLayout>
+
     </LinearLayout>
 
     <!-- Conteúdo principal com ScrollView -->
@@ -63,9 +81,10 @@
         android:overScrollMode="never">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
 
             <!-- Card de adicionar produto (apenas admins) -->
             <androidx.cardview.widget.CardView
@@ -79,109 +98,184 @@
                 app:cardElevation="4dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_add"
                         android:contentDescription="Adicionar produto"
+                        android:src="@drawable/ic_add"
                         app:tint="#FFFFFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
                         android:text="Adicionar Produto"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:paddingStart="12dp"/>
+                        android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Bebidas -->
-            <TextView
-                android:id="@+id/textHotDrinks"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bebidas Quentes"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textHotDrinks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bebidas Quentes"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF" />
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerHotDrinks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Bebidas Geladas -->
-            <TextView
-                android:id="@+id/textColdDrinks"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bebidas Geladas"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textColdDrinks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bebidas Geladas"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerColdDrinks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Salgados -->
-            <TextView
-                android:id="@+id/textSnacks"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salgados"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textSnacks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salgados"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSnacks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
 
             <!-- Doces -->
-            <TextView
-                android:id="@+id/textDesserts"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Doces"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textDesserts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doces"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerDesserts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingEnd="8dp"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

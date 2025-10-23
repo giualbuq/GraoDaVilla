@@ -16,13 +16,16 @@ import com.example.graodavilla.R;
 import com.example.graodavilla.models.CartItem;
 import com.example.graodavilla.repositories.CartManager;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private final Context context;
     private final List<CartItem> cartItems;
     private final OnCartUpdatedListener listener;
+    private final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
     public interface OnCartUpdatedListener {
         void onCartUpdated();
@@ -47,8 +50,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.textName.setText(item.getProduct().getName());
         holder.textQuantity.setText(String.valueOf(item.getQuantity()));
-        holder.textPriceTotal.setText(String.format("R$ %.2f", item.getTotalPrice()));
-        holder.textPriceUnit.setText(String.format("R$ %.2f", item.getProduct().getPrice()));
+        holder.textPriceUnit.setText(currencyFormat.format(item.getProduct().getPrice()));
+        holder.textPriceTotal.setText(currencyFormat.format(item.getTotalPrice()));
 
         Glide.with(context)
                 .load(item.getProduct().getImageUrl())
@@ -57,32 +60,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // Aumentar quantidade
         holder.buttonIncrease.setOnClickListener(v -> {
-            item.setQuantity(item.getQuantity() + 1);
-            notifyItemChanged(position);
+            CartManager.getInstance().addToCart(item.getProduct(), 1);
+            notifyDataSetChanged();
             listener.onCartUpdated();
         });
 
         // Diminuir quantidade
         holder.buttonDecrease.setOnClickListener(v -> {
-            int qty = item.getQuantity() - 1;
-            if (qty > 0) {
-                item.setQuantity(qty);
-                notifyItemChanged(position);
-            } else {
-                CartManager.getInstance().removeCartItem(item);
-                cartItems.remove(position);
-                notifyItemRemoved(position);
-            }
+            CartManager.getInstance().removeCartItemQuantity(item.getProduct(), 1);
+            notifyDataSetChanged();
             listener.onCartUpdated();
         });
 
         // Remover item com lixeira
         holder.buttonRemove.setOnClickListener(v -> {
             CartManager.getInstance().removeCartItem(item);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
             listener.onCartUpdated();
         });
-
     }
 
     @Override

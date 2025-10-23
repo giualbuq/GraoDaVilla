@@ -2,30 +2,15 @@ package com.example.graodavilla.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.graodavilla.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.*;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,17 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Vincular componentes
         initializeViews();
-
-        // Configurar Google Sign In
         configureGoogleSignIn();
-
-        // Configurar listeners
         setupClickListeners();
     }
 
@@ -73,34 +52,13 @@ public class RegisterActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     private void setupClickListeners() {
-        // Botão Cadastrar com Email/Senha
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptEmailRegistration();
-            }
-        });
-
-        // Botão Cadastrar com Google
-        buttonGoogleRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUpWithGoogle();
-            }
-        });
-
-        // Link para Login
-        textGoToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToLoginActivity();
-            }
-        });
+        buttonRegister.setOnClickListener(v -> attemptEmailRegistration());
+        buttonGoogleRegister.setOnClickListener(v -> signUpWithGoogle());
+        textGoToLogin.setOnClickListener(v -> goToLoginActivity());
     }
 
     private void attemptEmailRegistration() {
@@ -115,102 +73,39 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validateInputs(String name, String email, String password, String confirmPassword) {
-        // Validar nome
-        if (name.isEmpty()) {
-            editRegisterName.setError("Digite seu nome completo");
-            editRegisterName.requestFocus();
-            return false;
-        }
-
-        if (name.length() < 2) {
-            editRegisterName.setError("Nome deve ter pelo menos 2 caracteres");
-            editRegisterName.requestFocus();
-            return false;
-        }
-
-        // Validar email
-        if (email.isEmpty()) {
-            editRegisterEmail.setError("Digite seu e-mail");
-            editRegisterEmail.requestFocus();
-            return false;
-        }
-
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editRegisterEmail.setError("Digite um e-mail válido");
-            editRegisterEmail.requestFocus();
-            return false;
-        }
-
-        // Validar senha
-        if (password.isEmpty()) {
-            editRegisterPassword.setError("Digite uma senha");
-            editRegisterPassword.requestFocus();
-            return false;
-        }
-
-        if (password.length() < 6) {
-            editRegisterPassword.setError("Senha deve ter pelo menos 6 caracteres");
-            editRegisterPassword.requestFocus();
-            return false;
-        }
-
-        // Validar confirmação de senha
-        if (confirmPassword.isEmpty()) {
-            editRegisterConfirmPassword.setError("Confirme sua senha");
-            editRegisterConfirmPassword.requestFocus();
-            return false;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            editRegisterConfirmPassword.setError("Senhas não coincidem");
-            editRegisterConfirmPassword.requestFocus();
-            return false;
-        }
-
+        if (name.isEmpty()) { editRegisterName.setError("Digite seu nome completo"); return false; }
+        if (email.isEmpty()) { editRegisterEmail.setError("Digite seu e-mail"); return false; }
+        if (password.isEmpty()) { editRegisterPassword.setError("Digite uma senha"); return false; }
+        if (!password.equals(confirmPassword)) { editRegisterConfirmPassword.setError("Senhas não coincidem"); return false; }
         return true;
     }
 
     private void registerWithEmail(String name, String email, String password) {
         showLoading(true);
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
+                    showLoading(false);
                     if (task.isSuccessful()) {
-                        // Cadastro bem-sucedido
                         FirebaseUser user = mAuth.getCurrentUser();
                         saveUserToFirestore(user, name, email);
                         showToast("Cadastro realizado com sucesso!");
-                        goToMainActivity();
+                        goToMainActivity(false);
                     } else {
-                        showLoading(false);
-                        String errorMessage = getErrorMessage(task.getException());
-                        showToast(errorMessage);
+                        showToast("Erro: " + task.getException().getMessage());
                     }
                 });
     }
 
     private void saveUserToFirestore(FirebaseUser user, String name, String email) {
         if (user != null) {
-            // Criar objeto do usuário
             Map<String, Object> userData = new HashMap<>();
             userData.put("uid", user.getUid());
             userData.put("name", name);
             userData.put("email", email);
             userData.put("createdAt", com.google.firebase.Timestamp.now());
-            userData.put("profileCompleted", false);
+            userData.put("isAdmin", false); // 🔹 Define padrão
 
-            // Salvar no Firestore
-            db.collection("users")
-                    .document(user.getUid())
-                    .set(userData)
-                    .addOnSuccessListener(aVoid -> {
-                        showLoading(false);
-                        showToast("Perfil criado com sucesso!");
-                    })
-                    .addOnFailureListener(e -> {
-                        showLoading(false);
-                        showToast("Conta criada, mas erro ao salvar perfil: " + e.getMessage());
-                    });
+            db.collection("users").document(user.getUid()).set(userData);
         }
     }
 
@@ -223,7 +118,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -231,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 showLoading(false);
-                showToast("Falha no cadastro com Google: " + e.getStatusCode());
+                showToast("Falha no cadastro com Google");
             }
         }
     }
@@ -240,19 +134,15 @@ public class RegisterActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
+                    showLoading(false);
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        // Verificar se é um novo usuário
                         if (task.getResult().getAdditionalUserInfo().isNewUser()) {
                             saveGoogleUserToFirestore(user, account);
-                            showToast("Cadastro com Google realizado!");
-                        } else {
-                            showToast("Login com Google realizado!");
                         }
-                        goToMainActivity();
+                        goToMainActivity(false);
                     } else {
-                        showLoading(false);
-                        showToast("Falha no cadastro com Google");
+                        showToast("Erro no cadastro com Google");
                     }
                 });
     }
@@ -264,69 +154,29 @@ public class RegisterActivity extends AppCompatActivity {
         userData.put("email", account.getEmail());
         userData.put("photoUrl", account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "");
         userData.put("createdAt", com.google.firebase.Timestamp.now());
-        userData.put("profileCompleted", false);
-        userData.put("isGoogleUser", true);
-
-        db.collection("users")
-                .document(user.getUid())
-                .set(userData)
-                .addOnFailureListener(e -> {
-                    showToast("Conta criada, mas erro ao salvar perfil no Firestore");
-                });
-    }
-
-    private String getErrorMessage(Exception exception) {
-        if (exception == null) return "Erro desconhecido";
-
-        String error = exception.getMessage();
-        if (error.contains("email address is already")) {
-            return "E-mail já está em uso";
-        } else if (error.contains("password is weak")) {
-            return "Senha muito fraca";
-        } else if (error.contains("network error")) {
-            return "Erro de conexão. Verifique sua internet";
-        } else if (error.contains("invalid email")) {
-            return "E-mail inválido";
-        } else {
-            return "Erro: " + error;
-        }
+        userData.put("isAdmin", false); // 🔹 Sempre padrão
+        db.collection("users").document(user.getUid()).set(userData);
     }
 
     private void showLoading(boolean loading) {
         buttonRegister.setEnabled(!loading);
         buttonGoogleRegister.setEnabled(!loading);
-        textGoToLogin.setEnabled(!loading);
-
-        if (loading) {
-            buttonRegister.setText("Cadastrando...");
-        } else {
-            buttonRegister.setText("Cadastrar");
-        }
+        buttonRegister.setText(loading ? "Cadastrando..." : "Cadastrar");
     }
 
     private void showToast(String message) {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void goToMainActivity() {
+    private void goToMainActivity(boolean isAdmin) {
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        intent.putExtra("isAdmin", isAdmin);
         startActivity(intent);
         finish();
     }
 
     private void goToLoginActivity() {
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
         finish();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Verificar se usuário já está logado (caso venha do login)
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            goToMainActivity();
-        }
     }
 }

@@ -4,21 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2F2F2F"
-    android:fitsSystemWindows="true"
-    android:clipToPadding="false"
-    android:paddingTop="?attr/actionBarSize"
-    android:paddingBottom="16dp">
+    android:fitsSystemWindows="true">
 
     <!-- Conteúdo principal com ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="120dp"> <!-- espaço para o container do total -->
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content">
 
             <!-- Imagem do produto -->
             <ImageView
@@ -29,25 +26,26 @@
                 android:src="@drawable/defaultimage"
                 android:contentDescription="Imagem exemplo" />
 
-            <!-- Nome do produto com ícones de editar/deletar -->
+            <!-- Linha com título e ícones -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginTop="14dp">
+                android:layout_marginTop="14dp"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp">
 
                 <TextView
                     android:id="@+id/textNameDetail"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"/>
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:padding="6dp"/>
 
-                <!-- Botão de editar -->
                 <ImageView
                     android:id="@+id/buttonEditProduct"
                     android:layout_width="40dp"
@@ -59,7 +57,6 @@
                     android:visibility="visible"
                     app:tint="@color/white" />
 
-                <!-- Botão de deletar -->
                 <ImageView
                     android:id="@+id/buttonDeleteProduct"
                     android:layout_width="40dp"
@@ -73,76 +70,114 @@
                     app:tint="@color/white"/>
             </LinearLayout>
 
-            <!-- Descrição do produto -->
-            <TextView
-                android:id="@+id/textDescriptionDetail"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="#ffffff"
-                android:padding="8dp"/>
-
-            <!-- Preço do produto -->
+            <!-- Preço -->
             <TextView
                 android:id="@+id/textPriceDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:padding="6dp"
+                android:paddingTop="1dp"
+                android:paddingStart="22dp"
+                android:paddingEnd="10dp"/>
+
+            <!-- Descrição -->
+            <TextView
+                android:id="@+id/textDescriptionDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:padding="6dp"
+                android:paddingTop="1dp"
+                android:paddingStart="22dp"
+                android:paddingEnd="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Container inferior com total e contador -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#444444"
+        android:layout_gravity="bottom"
+        android:paddingStart="20dp">
+
+        <!-- Total -->
+        <TextView
+            android:id="@+id/textTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: R$ 12,00"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:paddingBottom="8dp"/>
+
+        <!-- Linha com contador e botão adicionar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Botão de diminuir -->
+            <ImageView
+                android:id="@+id/buttonDecrease"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_minus"
+                android:contentDescription="Diminuir"
+                android:padding="4dp"
+                android:layout_marginEnd="4dp"
+                app:tint="@android:color/white" />
+
+            <!-- Quantidade -->
+            <TextView
+                android:id="@+id/textQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="#ffffff"
-                android:padding="8dp"/>
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"/>
 
-            <!-- Contador de quantidade -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="16dp">
+            <!-- Botão de aumentar -->
+            <ImageView
+                android:id="@+id/buttonIncrease"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_add"
+                android:contentDescription="Aumentar"
+                android:padding="4dp"
+                android:layout_marginEnd="12dp"
+                app:tint="@android:color/white" />
 
-                <ImageButton
-                    android:id="@+id/buttonDecrease"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/rounded_button_background"
-                    android:src="@drawable/ic_minus"
-                    android:contentDescription="Diminuir quantidade"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/textQuantity"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-
-                <ImageButton
-                    android:id="@+id/buttonIncrease"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/rounded_button_background"
-                    android:src="@drawable/ic_add"
-                    android:contentDescription="Aumentar quantidade"
-                    app:tint="@color/white" />
-            </LinearLayout>
+            <!-- Spacer para empurrar o botão para a direita -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <!-- Botão Adicionar ao pedido -->
             <Button
                 android:id="@+id/buttonAddToCart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adicionar ao pedido"
-                android:layout_marginTop="20dp"
+                android:layout_height="48dp"
+                android:text="Adicionar"
                 android:backgroundTint="@color/accent_beige"
                 android:textColor="@android:color/white"
-                android:padding="12dp"/>
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="15dp"/>
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
     <!-- Floating Action Button para voltar -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

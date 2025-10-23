@@ -2,8 +2,8 @@ package com.example.graodavilla.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,21 +13,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.graodavilla.R;
 import com.example.graodavilla.repositories.CartManager;
-import com.example.graodavilla.models.CartItem;
 import com.example.graodavilla.models.Product;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_EDIT_PRODUCT = 101;
 
-    private ImageView imageProduct;
-    private TextView textName, textDescription, textPrice, textQuantity;
-    private ImageButton buttonIncrease, buttonDecrease;
+    private ImageView imageProduct, buttonEdit, buttonDelete;
+    private TextView textName, textDescription, textPrice, textQuantity, textTotal;
+    private ImageView buttonIncrease, buttonDecrease;
     private Button buttonAddToCart;
-    private ImageView buttonEdit, buttonDelete;
 
     private FirebaseFirestore db;
     private Product product;
@@ -41,13 +44,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(v -> finish());
 
-
         // findViewById
         imageProduct = findViewById(R.id.imageProductDetail);
         textName = findViewById(R.id.textNameDetail);
         textDescription = findViewById(R.id.textDescriptionDetail);
         textPrice = findViewById(R.id.textPriceDetail);
         textQuantity = findViewById(R.id.textQuantity);
+        textTotal = findViewById(R.id.textTotal);
         buttonIncrease = findViewById(R.id.buttonIncrease);
         buttonDecrease = findViewById(R.id.buttonDecrease);
         buttonAddToCart = findViewById(R.id.buttonAddToCart);
@@ -65,20 +68,26 @@ public class ProductDetailActivity extends AppCompatActivity {
             return;
         }
 
-        // Preencher dados
+        // Atualiza UI
         updateProductUI(product);
+        updateTotal();
+
+        // Carregar se o usuário é admin e ajustar visibilidade dos botões
+        checkAdminStatus();
 
         // Incrementar quantidade
         buttonIncrease.setOnClickListener(v -> {
             quantity++;
             textQuantity.setText(String.valueOf(quantity));
+            updateTotal();
         });
 
-        // Diminuir quantidade (mínimo 1)
+        // Diminuir quantidade
         buttonDecrease.setOnClickListener(v -> {
             if (quantity > 1) {
                 quantity--;
                 textQuantity.setText(String.valueOf(quantity));
+                updateTotal();
             }
         });
 
@@ -86,9 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         buttonAddToCart.setOnClickListener(v -> {
             CartManager.getInstance().addToCart(product, quantity);
             Toast.makeText(this, product.getName() + " adicionado ao carrinho!", Toast.LENGTH_SHORT).show();
-            // Volta para a MainActivity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         });
 
@@ -96,17 +103,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         buttonEdit.setOnClickListener(v -> {
             Intent intent = new Intent(this, EditProductActivity.class);
             intent.putExtra("product", product);
-            intent.putExtra("productId", product.getId()); // garante que o EditActivity tenha o ID
+            intent.putExtra("productId", product.getId());
             startActivityForResult(intent, REQUEST_EDIT_PRODUCT);
         });
 
+        // Excluir produto
         buttonDelete.setOnClickListener(v -> {
             if (product.getId() == null || product.getId().isEmpty()) {
                 Toast.makeText(this, "Erro: ID do produto não definido", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // Material AlertDialog com estilo do app
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Excluir produto")
                     .setMessage("Tem certeza que deseja excluir \"" + product.getName() + "\"?")
@@ -125,11 +132,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    // Atualiza a UI com os dados do produto
+    private void checkAdminStatus() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        Boolean isAdmin = snapshot.getBoolean("isAdmin");
+                        if (isAdmin != null && isAdmin) {
+                            // Usuário é admin → mostra botões
+                            buttonEdit.setVisibility(View.VISIBLE);
+                            buttonDelete.setVisibility(View.VISIBLE);
+                        } else {
+                            // Usuário não é admin → oculta botões
+                            buttonEdit.setVisibility(View.GONE);
+                            buttonDelete.setVisibility(View.GONE);
+                        }
+                    }
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Erro ao verificar permissões", Toast.LENGTH_SHORT).show());
+    }
+
     private void updateProductUI(Product product) {
         textName.setText(product.getName());
         textDescription.setText(product.getDescription());
-        textPrice.setText("R$ " + product.getPrice());
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        textPrice.setText(format.format(product.getPrice()));
 
         String url = product.getImageUrl();
         if (url != null && !url.isEmpty()) {
@@ -144,7 +173,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         textQuantity.setText(String.valueOf(quantity));
     }
 
-    // Receber resultado do EditProductActivity
+    private void updateTotal() {
+        double total = product.getPrice() * quantity;
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        textTotal.setText("Total: " + format.format(total));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,6 +188,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (updatedProduct != null) {
                 product = updatedProduct;
                 updateProductUI(product);
+                updateTotal();
             }
         }
     }
