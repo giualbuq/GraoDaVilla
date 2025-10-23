@@ -4,119 +4,171 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2F2F2F"
-    android:fitsSystemWindows="true" >
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#2F2F2F"
-    android:padding="10dp"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <!-- Conteúdo rolável -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="false">
 
-        <!-- Título da Tela -->
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meu Perfil"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Card de informações -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#3A3A3A"
-            android:padding="20dp"
-            android:elevation="4dp"
-            android:layout_marginBottom="24dp"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            android:layout_marginHorizontal="4dp">
+            android:gravity="center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
-            <!-- Nome -->
+            <!-- Título da Tela -->
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meu Perfil"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Card de informações do usuário -->
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
+                android:background="#3A3A3A"
+                android:padding="20dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="24dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_marginHorizontal="4dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_person"
-                    app:tint="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/textName"
-                    android:layout_width="wrap_content"
+                <!-- Nome -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="user"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:layout_marginStart="12dp"/>
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/textName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:layout_marginStart="12dp"/>
+                </LinearLayout>
+
+                <!-- Email -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_email"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/textEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="email"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:layout_marginStart="12dp"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Email -->
+            <!-- Seção Meus Pedidos -->
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/sectionMeusPedidos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_email"
-                    app:tint="#FFFFFF" />
+                android:orientation="vertical"
+                android:layout_marginTop="24dp">
 
                 <TextView
-                    android:id="@+id/textEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="email"
+                    android:text="Histórico de Pedidos"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
-                    android:layout_marginStart="12dp"/>
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center" />
+
+                <ProgressBar
+                    android:id="@+id/progressPedidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textPedidosEmpty"
+                    android:text="Nenhum pedido encontrado"
+                    android:textColor="#AAAAAA"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPedidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="16dp"
+                    android:background="#2f2f2f"/>
             </LinearLayout>
+
+            <!-- Padding para evitar que conteúdo fique escondido pelo botão fixo -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Botão Sair -->
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sair"
-            android:backgroundTint="#ba9d8a"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:layout_marginBottom="24dp"/>
-    </LinearLayout>
-</ScrollView>
+    <!-- Botão Sair fixo na parte inferior -->
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sair"
+        android:backgroundTint="#ba9d8a"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:layout_gravity="bottom"
+        android:layout_margin="25dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"/>
+
+    <!-- Botão de voltar flutuante -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/buttonBack"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:src="@drawable/ic_arrow_back"
-    android:contentDescription="Voltar"
-    android:backgroundTint="#323232"
-    app:elevation="8dp"
-    android:layout_gravity="top|start"
-    app:tint="#ffffff"/>
-
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Voltar"
+        android:backgroundTint="#323232"
+        app:elevation="8dp"
+        android:layout_gravity="top|start"
+        app:tint="#ffffff"/>
 </FrameLayout>
-
