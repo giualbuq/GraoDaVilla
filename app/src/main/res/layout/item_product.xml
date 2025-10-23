@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="190dp"
-    android:layout_height="190dp"
+    android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
@@ -21,15 +21,24 @@ android:layout_height="wrap_content">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imageProduct"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="Imagem do produto"
-        android:background="@drawable/defaultimage" />
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/imageProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagem do produto"
+            android:background="@drawable/defaultimage" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textName"
@@ -40,8 +49,6 @@ android:layout_height="wrap_content">
         android:textSize="16sp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingStart="10dp"
-        android:paddingEnd="8dp"
         android:paddingTop="4dp"
         android:paddingBottom="0dp" />
 
@@ -64,8 +71,6 @@ android:layout_height="wrap_content">
         android:textColor="@android:color/white"
         android:textStyle="normal"
         android:textSize="15sp"
-        android:paddingStart="10dp"
-        android:paddingEnd="8dp"
         android:paddingTop="2dp"
         android:paddingBottom="4dp" />
 
