@@ -12,7 +12,20 @@
           "package_name": "com.example.graodavilla"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "35793685227-jeu6bhcghgdva0pvodkaikf5pnlpvfh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.graodavilla",
+            "certificate_hash": "0c90dc6a095b9c7ee06d04f7eac22b1a1f7da3fc"
+          }
+        },
+        {
+          "client_id": "35793685227-rm6f9dvcb5uvm5ja2tjnarq01tkmripb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyArYb4rW4uVXHYkE8U0lbB-i80hzyQ-mlI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35793685227-rm6f9dvcb5uvm5ja2tjnarq01tkmripb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

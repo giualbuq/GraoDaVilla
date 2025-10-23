@@ -25,6 +25,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
@@ -135,11 +138,45 @@ public class LoginActivity extends AppCompatActivity {
                     showLoading(false);
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        fetchUserRole(user);
+                        checkOrCreateUserInFirestore(user);
                     } else {
                         showToast("Falha na autenticação com Google");
                     }
                 });
+    }
+
+    private void checkOrCreateUserInFirestore(FirebaseUser user) {
+        if (user == null) return;
+
+        db.collection("users")
+                .document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        boolean isAdmin = document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin");
+                        goToMainActivity(isAdmin);
+                    } else {
+                        createNewUserDocument(user);
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Erro ao verificar usuário"));
+    }
+
+    private void createNewUserDocument(FirebaseUser user) {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("name", user.getDisplayName() != null ? user.getDisplayName() : "Usuário Google");
+        userData.put("email", user.getEmail());
+        userData.put("isAdmin", false);
+        userData.put("createdAt", System.currentTimeMillis());
+
+        db.collection("users")
+                .document(user.getUid())
+                .set(userData)
+                .addOnSuccessListener(aVoid -> {
+                    showToast("Conta criada com sucesso!");
+                    goToMainActivity(false);
+                })
+                .addOnFailureListener(e -> showToast("Erro ao criar usuário no Firestore"));
     }
 
     private void fetchUserRole(FirebaseUser user) {
@@ -153,7 +190,8 @@ public class LoginActivity extends AppCompatActivity {
                         boolean isAdmin = document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin");
                         goToMainActivity(isAdmin);
                     } else {
-                        showToast("Usuário sem registro no Firestore");
+                        // Usuário de e-mail/senha sem documento (raro, mas cobre esse caso)
+                        createNewUserDocument(user);
                     }
                 })
                 .addOnFailureListener(e -> showToast("Erro ao buscar dados do usuário"));
