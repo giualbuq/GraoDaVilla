@@ -146,6 +146,12 @@
     </ScrollView>
 
     <!-- Botão Sair fixo na parte inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:background="#2f2f2f">
     <Button
         android:id="@+id/buttonLogout"
         android:layout_width="match_parent"
@@ -154,10 +160,11 @@
         android:backgroundTint="#ba9d8a"
         android:textColor="#FFFFFF"
         android:textAllCaps="false"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         android:layout_margin="25dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"/>
+    </LinearLayout>
 
     <!-- Botão de voltar flutuante -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

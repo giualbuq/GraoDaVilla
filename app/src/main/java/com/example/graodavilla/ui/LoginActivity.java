@@ -168,26 +168,42 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Cria novo documento do usuário no Firestore (caso não exista)
      */
+    /**
+     * Cria novo documento do usuário no Firestore (caso não exista)
+     */
     private void createUserInFirestore(FirebaseUser user) {
         if (user == null) return;
 
-        Map<String, Object> newUser = new HashMap<>();
-        newUser.put("uid", user.getUid());
-        newUser.put("name", user.getDisplayName() != null ? user.getDisplayName() : "Usuário");
-        newUser.put("email", user.getEmail());
-        newUser.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
-        newUser.put("isAdmin", false); // padrão: não administrador
-        newUser.put("createdAt", System.currentTimeMillis());
+        db.collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        // Já existe — apenas continua
+                        boolean isAdmin = document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin");
+                        goToMainActivity(isAdmin);
+                    } else {
+                        // Não existe — cria novo registro
+                        Map<String, Object> newUser = new HashMap<>();
+                        newUser.put("uid", user.getUid());
+                        newUser.put("name", user.getDisplayName() != null ? user.getDisplayName() : "Usuário");
+                        newUser.put("email", user.getEmail());
+                        newUser.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
+                        newUser.put("isAdmin", false);
+                        newUser.put("createdAt", System.currentTimeMillis());
 
-        db.collection("users")
-                .document(user.getUid())
-                .set(newUser)
-                .addOnSuccessListener(aVoid -> {
-                    showToast("Usuário cadastrado com sucesso!");
-                    goToMainActivity(false);
+                        db.collection("users")
+                                .document(user.getUid())
+                                .set(newUser)
+                                .addOnSuccessListener(aVoid -> {
+                                    showToast("Usuário cadastrado com sucesso!");
+                                    goToMainActivity(false);
+                                })
+                                .addOnFailureListener(e -> showToast("Erro ao cadastrar usuário: " + e.getMessage()));
+                    }
                 })
-                .addOnFailureListener(e -> showToast("Erro ao cadastrar usuário: " + e.getMessage()));
+                .addOnFailureListener(e -> showToast("Erro ao verificar usuário: " + e.getMessage()));
     }
+
 
     private void showLoading(boolean loading) {
         buttonLogin.setEnabled(!loading);

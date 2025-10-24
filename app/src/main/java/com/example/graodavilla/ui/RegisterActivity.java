@@ -97,17 +97,34 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void saveUserToFirestore(FirebaseUser user, String name, String email) {
-        if (user != null) {
-            Map<String, Object> userData = new HashMap<>();
-            userData.put("uid", user.getUid());
-            userData.put("name", name);
-            userData.put("email", email);
-            userData.put("createdAt", com.google.firebase.Timestamp.now());
-            userData.put("isAdmin", false);
+        if (user == null) return;
 
-            db.collection("users").document(user.getUid()).set(userData);
-        }
+        db.collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        showToast("Usuário já cadastrado!");
+                        goToMainActivity(document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin"));
+                    } else {
+                        Map<String, Object> userData = new HashMap<>();
+                        userData.put("uid", user.getUid());
+                        userData.put("name", name);
+                        userData.put("email", email);
+                        userData.put("createdAt", com.google.firebase.Timestamp.now());
+                        userData.put("isAdmin", false);
+
+                        db.collection("users").document(user.getUid())
+                                .set(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    showToast("Cadastro realizado com sucesso!");
+                                    goToMainActivity(false);
+                                })
+                                .addOnFailureListener(e -> showToast("Erro ao salvar usuário: " + e.getMessage()));
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Erro ao verificar usuário: " + e.getMessage()));
     }
+
 
     private void signUpWithGoogle() {
         showLoading(true);
@@ -148,15 +165,35 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void saveGoogleUserToFirestore(FirebaseUser user, GoogleSignInAccount account) {
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("uid", user.getUid());
-        userData.put("name", account.getDisplayName() != null ? account.getDisplayName() : "Usuário");
-        userData.put("email", account.getEmail());
-        userData.put("photoUrl", account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "");
-        userData.put("createdAt", com.google.firebase.Timestamp.now());
-        userData.put("isAdmin", false);
-        db.collection("users").document(user.getUid()).set(userData);
+        if (user == null) return;
+
+        db.collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        showToast("Usuário já existe!");
+                        goToMainActivity(document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin"));
+                    } else {
+                        Map<String, Object> userData = new HashMap<>();
+                        userData.put("uid", user.getUid());
+                        userData.put("name", account.getDisplayName() != null ? account.getDisplayName() : "Usuário");
+                        userData.put("email", account.getEmail());
+                        userData.put("photoUrl", account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "");
+                        userData.put("createdAt", com.google.firebase.Timestamp.now());
+                        userData.put("isAdmin", false);
+
+                        db.collection("users").document(user.getUid())
+                                .set(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    showToast("Usuário Google cadastrado com sucesso!");
+                                    goToMainActivity(false);
+                                })
+                                .addOnFailureListener(e -> showToast("Erro ao cadastrar usuário Google: " + e.getMessage()));
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Erro ao verificar usuário Google: " + e.getMessage()));
     }
+
 
     private void showLoading(boolean loading) {
         buttonRegister.setEnabled(!loading);
