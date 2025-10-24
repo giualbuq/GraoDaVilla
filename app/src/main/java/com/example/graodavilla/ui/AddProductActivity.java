@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -66,8 +67,7 @@ public class AddProductActivity extends AppCompatActivity {
         editDescription = findViewById(R.id.editDescription);
         editPrice = findViewById(R.id.editPrice);
         spinnerCategory = findViewById(R.id.spinnerCategory);
-        imageProduct = findViewById(R.id.imageProduct);
-        buttonSelectImage = findViewById(R.id.iconSelectImage);
+        imageProduct = findViewById(R.id.addImageProduct); // novo ImageView do FrameLayout
         buttonSave = findViewById(R.id.buttonSave);
         buttonCancel = findViewById(R.id.buttonCancel);
         progressBar = findViewById(R.id.progressBar);
@@ -76,7 +76,6 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Configura categorias do Spinner
         String[] categorias = {"bebida quente", "bebida gelada", "doce", "salgado"};
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.spinner_item_dark, // layout customizado
@@ -85,12 +84,17 @@ public class AddProductActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_dark);
         spinnerCategory.setAdapter(adapter);
 
-        buttonSelectImage.setOnClickListener(v -> checkPermissionAndOpenGallery());
+        // Frame clicável para selecionar imagem
+        FrameLayout addProductSection = findViewById(R.id.addProductSection);
+        addProductSection.setOnClickListener(v -> checkPermissionAndOpenGallery());
+
         buttonSave.setOnClickListener(v -> uploadImageToCloudinary());
         buttonCancel.setOnClickListener(v -> finish());
+
         FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
         buttonBack.setOnClickListener(v -> finish());
     }
+
 
     private void checkPermissionAndOpenGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

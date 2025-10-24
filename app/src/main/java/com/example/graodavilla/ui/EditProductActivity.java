@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -69,7 +70,6 @@ public class EditProductActivity extends AppCompatActivity {
         editPrice = findViewById(R.id.editPrice);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         imageProduct = findViewById(R.id.imageProduct);
-        buttonSelectImage = findViewById(R.id.iconSelectImage);
         buttonSave = findViewById(R.id.buttonSave);
         buttonCancel = findViewById(R.id.buttonCancel);
         progressBar = findViewById(R.id.progressBar);
@@ -95,19 +95,17 @@ public class EditProductActivity extends AppCompatActivity {
 
         fillFormWithProduct();
 
-        buttonSelectImage.setOnClickListener(v -> checkPermissionAndOpenGallery());
+        // Frame clicável para selecionar imagem
+        FrameLayout productSection = findViewById(R.id.productSection);
+        productSection.setOnClickListener(v -> checkPermissionAndOpenGallery());
+
         buttonSave.setOnClickListener(v -> uploadImageAndSaveProduct());
         buttonCancel.setOnClickListener(v -> finish());
+
         FloatingActionButton buttonBack = findViewById(R.id.buttonBack);
-        buttonBack.setOnClickListener(v -> {
-            Intent intent = new Intent(EditProductActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        });
-
-
+        buttonBack.setOnClickListener(v -> finish());
     }
+
 
     private void fillFormWithProduct() {
         editName.setText(product.getName());
