@@ -84,36 +84,6 @@
                 android:fontFamily="@font/roboto_bold"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/buttonGoogleRegister"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/bg_edittext_round"
-            android:backgroundTint="@color/divider_gray"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_google"
-                android:contentDescription="Ícone Google"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Entrar com Google"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:fontFamily="@font/roboto_bold" />
-        </LinearLayout>
-
 
         <!-- Nome -->
         <LinearLayout
@@ -259,6 +229,35 @@
             android:backgroundTint="@color/accent_beige"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto_bold" />
+        <LinearLayout
+            android:id="@+id/buttonGoogleRegister"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_edittext_round"
+            android:backgroundTint="@color/divider_gray"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true">
 
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_google"
+                android:contentDescription="Ícone Google"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrar com Google"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_bold" />
+        </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
