@@ -7,12 +7,12 @@ O projeto demonstra o fluxo completo de **cadastro, login, navegação por produ
 
 ## 🚀 Funcionalidades Principais
 
-### 👤 Autenticação
+### Autenticação
 - Registro de novos usuários com **Firebase Authentication**.  
 - Login seguro com **email e senha**.  
 - Login com **Google** totalmente integrado.  
 
-### 🛒 Catálogo de Produtos
+### Catálogo de Produtos
 - Exibição de **bebidas quentes, geladas, salgados e doces** com:
   - Nome do produto  
   - Descrição detalhada  
@@ -20,21 +20,21 @@ O projeto demonstra o fluxo completo de **cadastro, login, navegação por produ
   - Preço  
 - Adição de produtos ao carrinho com quantidade personalizada.
 
-### 🧾 Carrinho de Compras
+### Carrinho de Compras
 - Visualização dos produtos adicionados.  
 - Atualização automática do **valor total** do pedido.  
 - Opção de remover produtos ou alterar quantidades.  
 
-### 💳 Finalização do Pedido
+### Finalização do Pedido
 - Seleção da **forma de pagamento**: Pix, crédito, débito ou dinheiro.  
 - Inserção do **número da mesa** antes de confirmar o pedido.  
 - Armazenamento de pedidos no **Firebase Realtime Database**.  
 
-### 📦 Histórico de Pedidos
+### Histórico de Pedidos
 - Histórico completo por usuário.  
 - Visualização de pedidos anteriores com **data, valor e status**.  
 
-### 🛠️ Área de Administrador
+### Área de Administrador
 - Administradores podem **gerenciar o catálogo**:
   - Adicionar novos produtos  
   - Editar informações de produtos existentes  
