@@ -1,4 +1,4 @@
-# Grão da Villa - Aplicativo de Cafeteria ☕
+# ☕ Grão da Villa - Aplicativo de Cafeteria
 
 O **Grão da Villa** é um aplicativo Android desenvolvido para simular o funcionamento de uma cafeteria moderna.  
 O projeto demonstra o fluxo completo de **cadastro, login, navegação por produtos, adição ao carrinho e finalização de pedidos**, com integração ao **Firebase**.
